@@ -2,6 +2,11 @@
   "name": "qiita-hackathon-2024-qualify",
   "version": "1.0.0",
   "description": "",
-  "scripts": {},
-  "license": "Unlicense"
+  "scripts": {
+    "format": "biome check . --apply-unsafe"
+  },
+  "license": "Unlicense",
+  "devDependencies": {
+    "@biomejs/biome": "1.5.3"
+  }
 }
