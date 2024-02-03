@@ -1,32 +1,37 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
 {
-	"name": "Node.js & TypeScript",
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "pnpm install",
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"biomejs.biome"
-			],
-			"settings": {
-				"eslint.enable": false,
-				"[javascript][javascriptreact][typescript][typescriptreact]": {
-					"editor.defaultFormatter": "biomejs.biome",
-					"editor.codeActionsOnSave": {
-						"quickfix.biome": "explicit",
-						"source.organizeImports.biome": "explicit"
-					}
-				}
-			}
-		}
-	}
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+  "name": "Node.js & TypeScript",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
+    "ghcr.io/devcontainers/features/go:1": {},
+    "ghcr.io/azutake/devcontainer-features/go-packages-install:0": {
+      "PACKAGES": "github.com/sqlc-dev/sqlc/cmd/sqlc@latest"
+    }
+  },
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "pnpm install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "biomejs.biome"
+      ],
+      "settings": {
+        "eslint.enable": false,
+        "[javascript][javascriptreact][typescript][typescriptreact]": {
+          "editor.defaultFormatter": "biomejs.biome",
+          "editor.codeActionsOnSave": {
+            "quickfix.biome": "explicit",
+            "source.organizeImports.biome": "explicit"
+          }
+        }
+      }
+    }
+  }
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
 }
