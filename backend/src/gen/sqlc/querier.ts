@@ -32,3 +32,55 @@ export function customers(
   }
 }
 
+const createUsersQuery = `-- name: createUsers :exec
+INSERT INTO Users (uuid) VALUES (?1)`;
+
+export type createUsersParams = {
+  uuid: string;
+};
+
+export function createUsers(
+  d1: D1Database,
+  args: createUsersParams
+): Query<D1Result> {
+  const ps = d1
+    .prepare(createUsersQuery)
+    .bind(args.uuid);
+  return {
+    then(onFulfilled?: (value: D1Result) => void, onRejected?: (reason?: any) => void) {
+      ps.run()
+        .then(onFulfilled).catch(onRejected);
+    },
+    batch() { return ps; },
+  }
+}
+
+const getUserQuery = `-- name: getUser :one
+SELECT uuid, createdat, updatedat FROM Users WHERE uuid = ?1`;
+
+export type getUserParams = {
+  uuid: string;
+};
+
+export type getUserRow = {
+  uuid: string;
+  createdat: string;
+  updatedat: string;
+};
+
+export function getUser(
+  d1: D1Database,
+  args: getUserParams
+): Query<getUserRow | null> {
+  const ps = d1
+    .prepare(getUserQuery)
+    .bind(args.uuid);
+  return {
+    then(onFulfilled?: (value: getUserRow | null) => void, onRejected?: (reason?: any) => void) {
+      ps.first<getUserRow | null>()
+        .then(onFulfilled).catch(onRejected);
+    },
+    batch() { return ps; },
+  }
+}
+

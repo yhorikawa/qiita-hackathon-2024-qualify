@@ -9,3 +9,8 @@ export type Customers = {
   contactname: string | null;
 };
 
+export type Users = {
+  uuid: string;
+  createdat: string;
+  updatedat: string;
+};
