@@ -19,7 +19,8 @@
     "vscode": {
       "extensions": [
         "biomejs.biome",
-        "github.copilot"
+        "github.copilot",
+        "EditorConfig.EditorConfig"
       ],
       "settings": {
         "eslint.enable": false,
