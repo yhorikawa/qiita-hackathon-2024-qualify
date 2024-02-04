@@ -11,6 +11,9 @@
     "types": [
       "@cloudflare/workers-types"
     ],
+    "paths": {
+      "@/sqlc/*": ["./src/gen/sqlc/*"]
+    },
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx"
   },

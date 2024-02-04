@@ -9,29 +9,6 @@ type Query<T> = {
   then(onFulfilled?: (value: T) => void, onRejected?: (reason?: any) => void): void;
   batch(): D1PreparedStatement;
 }
-const customersQuery = `-- name: customers :many
-SELECT customerid, companyname, contactname FROM Customers`;
-
-export type customersRow = {
-  customerid: number;
-  companyname: string | null;
-  contactname: string | null;
-};
-
-export function customers(
-  d1: D1Database
-): Query<D1Result<customersRow>> {
-  const ps = d1
-    .prepare(customersQuery);
-  return {
-    then(onFulfilled?: (value: D1Result<customersRow>) => void, onRejected?: (reason?: any) => void) {
-      ps.all<customersRow>()
-        .then(onFulfilled).catch(onRejected);
-    },
-    batch() { return ps; },
-  }
-}
-
 const createUsersQuery = `-- name: createUsers :exec
 INSERT INTO Users (uuid) VALUES (?1)`;
 
