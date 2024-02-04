@@ -14,15 +14,17 @@
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "pnpm install",
+  "postCreateCommand": "/bin/sh .devcontainer/postCreatecommand.sh",
   "customizations": {
     "vscode": {
       "extensions": [
-        "biomejs.biome"
+        "biomejs.biome",
+        "github.copilot"
       ],
       "settings": {
         "eslint.enable": false,
         "[javascript][javascriptreact][typescript][typescriptreact]": {
+          "editor.formatOnSave": true,
           "editor.defaultFormatter": "biomejs.biome",
           "editor.codeActionsOnSave": {
             "quickfix.biome": "explicit",
