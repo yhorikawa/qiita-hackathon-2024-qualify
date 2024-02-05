@@ -2,14 +2,13 @@ import * as db from "@/sqlc/querier";
 import { Hono } from "hono";
 import { setCookie } from "hono/cookie";
 import { sign } from "hono/jwt";
-import { v4 as uuidv4 } from "uuid";
 import { Bindings } from "./index";
 
 const app = new Hono<{ Bindings: Bindings }>();
 
 const routes = app
   .post("/register", async (c) => {
-    const uuid = uuidv4();
+    const uuid = crypto.randomUUID();
     const createUserParams = {
       uuid,
     };
