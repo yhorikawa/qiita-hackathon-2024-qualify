@@ -6,7 +6,8 @@
       "**/.next/*",
       "**/env.d.ts",
       "**/*.json",
-      "backend/src/gen/*"
+      "backend/src/gen/*",
+      "**/.wrangler/*"
     ]
   },
   "organizeImports": {
