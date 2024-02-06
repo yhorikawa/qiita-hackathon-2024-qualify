@@ -15,7 +15,8 @@ const api = new Hono<{ Bindings: Bindings }>()
   .use(
     "*",
     cors({
-      origin: "http://localhost:3000",
+      origin: "https://ideal-couscous-vr6xgpxp6gxcx4wj-3000.app.github.dev",
+      // origin: ["http://localhost:3000", "*.app.github.dev"],
       credentials: true,
       allowMethods: ["GET", "HEAD", "PUT", "POST", "DELETE"],
       allowHeaders: [],
@@ -24,7 +25,7 @@ const api = new Hono<{ Bindings: Bindings }>()
   .use(
     "*",
     csrf({
-      origin: "http://localhost:3000",
+      origin: ["http://localhost:3000", "*.app.github.dev"],
     }),
   )
   .get("/", (c) => {

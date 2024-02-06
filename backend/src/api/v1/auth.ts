@@ -19,7 +19,9 @@ const routes = app
       expires: new Date(new Date().setDate(new Date().getDate() + 7)),
       httpOnly: true,
       sameSite: "None",
-      secure: c.env.ENVIROMENT === "dev" ? false : true,
+      // secure:  c.env.ENVIROMENT === "dev" ? false : true,
+      secure: true,
+      path: "/",
     });
     c.status(201);
     return c.json({ success: true });
@@ -40,6 +42,7 @@ const routes = app
       httpOnly: true,
       sameSite: "None",
       secure: c.env.ENVIROMENT === "dev" ? false : true,
+      domain: "github.dev",
     });
     return c.json({ success: true });
   });
