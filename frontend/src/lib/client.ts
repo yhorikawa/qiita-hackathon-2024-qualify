@@ -1,6 +1,5 @@
 import { hc } from "hono/client";
 import { AppType } from "../../../backend/src/index";
 
-export const client = hc<AppType>(
-  "https://ideal-couscous-vr6xgpxp6gxcx4wj-8787.app.github.dev",
-);
+// TODO: 環境変数からURLを取得するようにする
+export const client = hc<AppType>("http://localhost:3000");
