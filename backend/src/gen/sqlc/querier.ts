@@ -9,23 +9,52 @@ type Query<T> = {
   then(onFulfilled?: (value: T) => void, onRejected?: (reason?: any) => void): void;
   batch(): D1PreparedStatement;
 }
-const customersQuery = `-- name: customers :many
-SELECT customerid, companyname, contactname FROM Customers`;
+const createUsersQuery = `-- name: createUsers :exec
+INSERT INTO Users (uuid) VALUES (?1)`;
 
-export type customersRow = {
-  customerid: number;
-  companyname: string | null;
-  contactname: string | null;
+export type createUsersParams = {
+  uuid: string;
 };
 
-export function customers(
-  d1: D1Database
-): Query<D1Result<customersRow>> {
+export function createUsers(
+  d1: D1Database,
+  args: createUsersParams
+): Query<D1Result> {
   const ps = d1
-    .prepare(customersQuery);
+    .prepare(createUsersQuery)
+    .bind(args.uuid);
   return {
-    then(onFulfilled?: (value: D1Result<customersRow>) => void, onRejected?: (reason?: any) => void) {
-      ps.all<customersRow>()
+    then(onFulfilled?: (value: D1Result) => void, onRejected?: (reason?: any) => void) {
+      ps.run()
+        .then(onFulfilled).catch(onRejected);
+    },
+    batch() { return ps; },
+  }
+}
+
+const getUserQuery = `-- name: getUser :one
+SELECT uuid, createdat, updatedat FROM Users WHERE uuid = ?1`;
+
+export type getUserParams = {
+  uuid: string;
+};
+
+export type getUserRow = {
+  uuid: string;
+  createdat: string;
+  updatedat: string;
+};
+
+export function getUser(
+  d1: D1Database,
+  args: getUserParams
+): Query<getUserRow | null> {
+  const ps = d1
+    .prepare(getUserQuery)
+    .bind(args.uuid);
+  return {
+    then(onFulfilled?: (value: getUserRow | null) => void, onRejected?: (reason?: any) => void) {
+      ps.first<getUserRow | null>()
         .then(onFulfilled).catch(onRejected);
     },
     batch() { return ps; },

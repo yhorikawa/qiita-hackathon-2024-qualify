@@ -1,6 +1,8 @@
 {
   "scripts": {
     "migrate:local": "wrangler d1 execute DB --local --file=./db/schema.sql",
+    "generate:wrangler": "cp ./wrangler.example.toml ./wrangler.toml",
+    "generate:sqlc": "sqlc generate",
     "dev": "wrangler dev src/index.ts",
     "deploy": "wrangler deploy --minify src/index.ts"
   },
