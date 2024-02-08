@@ -14,17 +14,8 @@ export type Bindings = {
 const api = new Hono<{ Bindings: Bindings }>()
   .use(
     "*",
-    cors({
-      origin: "http://localhost:3000",
-      credentials: true,
-      allowMethods: ["GET", "HEAD", "PUT", "POST", "DELETE"],
-      allowHeaders: [],
-    }),
-  )
-  .use(
-    "*",
     csrf({
-      origin: "http://localhost:3000",
+      origin: ["http://localhost:3000", "*.app.github.dev"],
     }),
   )
   .get("/", (c) => {
