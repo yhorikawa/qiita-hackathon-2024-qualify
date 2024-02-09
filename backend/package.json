@@ -3,14 +3,14 @@
     "migrate:local": "wrangler d1 execute DB --local --file=./db/schema.sql",
     "generate:wrangler": "cp ./wrangler.example.toml ./wrangler.toml",
     "generate:sqlc": "sqlc generate",
-    "dev": "wrangler dev src/index.ts",
-    "deploy": "wrangler deploy --minify src/index.ts"
+    "dev": "wrangler dev src/index.ts --env dev",
+    "deploy": "wrangler deploy --minify src/index.ts --env production"
   },
   "dependencies": {
     "hono": "^4.0.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231218.0",
-    "wrangler": "^3.22.0"
+    "wrangler": "^3.28.1"
   }
 }
