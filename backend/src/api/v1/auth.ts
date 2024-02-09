@@ -1,7 +1,7 @@
-import * as db from "@/sqlc/querier";
 import { Hono } from "hono";
 import { setCookie } from "hono/cookie";
 import { sign } from "hono/jwt";
+import * as db from "../../gen/sqlc/querier";
 import { Bindings } from "./index";
 
 const app = new Hono<{ Bindings: Bindings }>();

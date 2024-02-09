@@ -1,6 +1,6 @@
-import * as db from "@/sqlc/querier";
 import { Hono } from "hono";
 import { jwt } from "hono/jwt";
+import * as db from "../../gen/sqlc/querier";
 import { Bindings } from "./index";
 
 const app = new Hono<{ Bindings: Bindings }>();

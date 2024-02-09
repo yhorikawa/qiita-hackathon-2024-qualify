@@ -1,6 +1,5 @@
 import { D1Database } from "@cloudflare/workers-types/experimental";
 import { Hono } from "hono";
-import { cors } from "hono/cors";
 import { csrf } from "hono/csrf";
 import authApi from "./auth";
 import usersApi from "./users";
