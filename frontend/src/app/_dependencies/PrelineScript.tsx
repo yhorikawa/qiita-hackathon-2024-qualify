@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { IStaticMethods } from "preline/preline";
 declare global {
@@ -12,15 +12,19 @@ declare global {
 
 export const PrelineScript = () => {
   const path = usePathname();
+  const [initiated, setInitiated] = useState(false);
 
   useEffect(() => {
-    import("preline/preline");
+    import("preline/preline").then(() => {
+      setInitiated(true);
+    });
   }, []);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     setTimeout(() => {
       if (typeof window === "undefined") return;
+      if (typeof window?.HSStaticMethods === "undefined") return;
       window.HSStaticMethods.autoInit();
     }, 100);
   }, [path]);
