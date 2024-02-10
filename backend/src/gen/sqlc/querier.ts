@@ -10,10 +10,10 @@ type Query<T> = {
   batch(): D1PreparedStatement;
 }
 const createUsersQuery = `-- name: createUsers :exec
-INSERT INTO Users (uuid) VALUES (?1)`;
+INSERT INTO Users (id) VALUES (?1)`;
 
 export type createUsersParams = {
-  uuid: string;
+  id: string;
 };
 
 export function createUsers(
@@ -22,7 +22,7 @@ export function createUsers(
 ): Query<D1Result> {
   const ps = d1
     .prepare(createUsersQuery)
-    .bind(args.uuid);
+    .bind(args.id);
   return {
     then(onFulfilled?: (value: D1Result) => void, onRejected?: (reason?: any) => void) {
       ps.run()
@@ -33,16 +33,22 @@ export function createUsers(
 }
 
 const getUserQuery = `-- name: getUser :one
-SELECT uuid, createdat, updatedat FROM Users WHERE uuid = ?1`;
+SELECT id, created_at, updated_at FROM Users WHERE id = ?1`;
 
 export type getUserParams = {
-  uuid: string;
+  id: string;
 };
 
 export type getUserRow = {
-  uuid: string;
-  createdat: string;
-  updatedat: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type RawgetUserRow = {
+  id: string;
+  created_at: string;
+  updated_at: string;
 };
 
 export function getUser(
@@ -51,10 +57,15 @@ export function getUser(
 ): Query<getUserRow | null> {
   const ps = d1
     .prepare(getUserQuery)
-    .bind(args.uuid);
+    .bind(args.id);
   return {
     then(onFulfilled?: (value: getUserRow | null) => void, onRejected?: (reason?: any) => void) {
-      ps.first<getUserRow | null>()
+      ps.first<RawgetUserRow | null>()
+        .then((raw: RawgetUserRow | null) => raw ? {
+          id: raw.id,
+          createdAt: raw.created_at,
+          updatedAt: raw.updated_at,
+        } : null)
         .then(onFulfilled).catch(onRejected);
     },
     batch() { return ps; },

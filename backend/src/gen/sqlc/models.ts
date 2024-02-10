@@ -4,8 +4,26 @@
 //   sqlc-gen-ts-d1 v0.0.0-a@5663d287bfb2297a3d62286a1c59e21b42a39884f252829ea86d502fcebe94ef
 
 export type Users = {
-  uuid: string;
-  createdat: string;
-  updatedat: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type Messages = {
+  id: number;
+  userId: string;
+  category: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type Replies = {
+  id: number;
+  messageId: number;
+  userId: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
