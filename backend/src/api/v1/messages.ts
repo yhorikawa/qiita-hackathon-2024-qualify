@@ -6,6 +6,23 @@ import * as db from "../../gen/sqlc/querier";
 import { fetchChatGPTResponse } from "../../util/openai";
 import { Bindings } from "./index";
 
+const categories = [
+  "love",
+  "work",
+  "education",
+  "health",
+  "mental-health",
+  "finances",
+  "growth",
+  "life",
+  "loss",
+  "identity",
+  "parenting",
+  "sexuality",
+  "communication",
+  "relationships",
+];
+
 const app = new Hono<{ Bindings: Bindings }>();
 
 app.use("*", async (c, next) => {
@@ -33,12 +50,18 @@ const routes = app
           content: content,
         },
       ];
-      const response = await fetchChatGPTResponse(c.env.OPENAI_API_KEY, messages);
-      console.log(response.choices[0].message.content);
+      const response = await fetchChatGPTResponse(
+        c.env.OPENAI_API_KEY,
+        messages,
+      );
+
+      const category = categories.includes(response.choices[0].message.content)
+        ? response.choices[0].message.content
+        : "other";
 
       const createMessageParams = {
         userId: payload.id,
-        category: response.choices[0].message.content,
+        category: category,
         content,
       };
 

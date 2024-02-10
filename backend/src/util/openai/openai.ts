@@ -5,7 +5,19 @@ type Message = {
   content: string;
 };
 
-export const fetchChatGPTResponse = (apiKey: string, messages: Message[]) => {
+type ChatGPTResponse = {
+  choices: {
+    message: {
+      role: string;
+      content: string;
+    };
+  }[];
+};
+
+export const fetchChatGPTResponse = (
+  apiKey: string,
+  messages: Message[],
+): Promise<ChatGPTResponse> => {
   const body = {
     model: "gpt-3.5-turbo-0125",
     messages: messages,
@@ -19,7 +31,5 @@ export const fetchChatGPTResponse = (apiKey: string, messages: Message[]) => {
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify(body),
-  })
-    .then((response) => response.json())
-    .catch((error) => console.error("Error:", error));
+  }).then((response) => response.json());
 };
