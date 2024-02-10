@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { NavsTabLayout } from "#/app/_ui-components/NavsTabLayout";
-import { MessageListNav } from "../_dependencies/MessageListNav";
+import { NavigationLayout } from "#/components/NavigationLayout";
 
 export default function MessagesSomeoneListPage() {
   return (
-    <NavsTabLayout Navigation={<MessageListNav someoneMessageCount={0} />}>
+    <NavigationLayout>
       <ul className="flex flex-col">
         {[...Array(10)].fill("届いたメッセージ").map((message, i) => (
           <li
@@ -61,6 +60,6 @@ export default function MessagesSomeoneListPage() {
           </svg>
         </span>
       </button>
-    </NavsTabLayout>
+    </NavigationLayout>
   );
 }

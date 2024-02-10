@@ -26,7 +26,7 @@ const routes = app
       setCookie(c, "accessToken", accessToken, {
         expires: new Date(new Date().setDate(new Date().getDate() + 7)),
         httpOnly: true,
-        sameSite: "None",
+        sameSite: "Lax",
         secure: c.env.ENVIROMENT === "dev" ? false : true,
       });
       c.status(201);
@@ -55,7 +55,7 @@ const routes = app
       setCookie(c, "accessToken", accessToken, {
         expires: new Date(new Date().setDate(new Date().getDate() + 7)),
         httpOnly: true,
-        sameSite: "None",
+        sameSite: "Lax",
         secure: c.env.ENVIROMENT === "dev" ? false : true,
       });
       return c.json({ success: true });

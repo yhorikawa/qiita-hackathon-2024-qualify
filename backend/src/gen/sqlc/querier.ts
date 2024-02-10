@@ -178,6 +178,122 @@ export function getCategorizedMessages(
   }
 }
 
+const getSentMessagesQuery = `-- name: getSentMessages :many
+SELECT
+  id, user_id, category, content, created_at, updated_at
+FROM
+  Messages
+WHERE
+  user_id = ?1
+ORDER BY
+  created_at DESC`;
+
+export type getSentMessagesParams = {
+  userId: string;
+};
+
+export type getSentMessagesRow = {
+  id: number;
+  userId: string;
+  category: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type RawgetSentMessagesRow = {
+  id: number;
+  user_id: string;
+  category: string;
+  content: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export function getSentMessages(
+  d1: D1Database,
+  args: getSentMessagesParams
+): Query<D1Result<getSentMessagesRow>> {
+  const ps = d1
+    .prepare(getSentMessagesQuery)
+    .bind(args.userId);
+  return {
+    then(onFulfilled?: (value: D1Result<getSentMessagesRow>) => void, onRejected?: (reason?: any) => void) {
+      ps.all<RawgetSentMessagesRow>()
+        .then((r: D1Result<RawgetSentMessagesRow>) => { return {
+          ...r,
+          results: r.results.map((raw: RawgetSentMessagesRow) => { return {
+            id: raw.id,
+            userId: raw.user_id,
+            category: raw.category,
+            content: raw.content,
+            createdAt: raw.created_at,
+            updatedAt: raw.updated_at,
+          }}),
+        }})
+        .then(onFulfilled).catch(onRejected);
+    },
+    batch() { return ps; },
+  }
+}
+
+const getRepliesQuery = `-- name: getReplies :many
+SELECT
+  id, message_id, user_id, content, created_at, updated_at
+FROM
+  Replies
+WHERE
+  message_id = ?1`;
+
+export type getRepliesParams = {
+  messageId: number;
+};
+
+export type getRepliesRow = {
+  id: number;
+  messageId: number;
+  userId: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type RawgetRepliesRow = {
+  id: number;
+  message_id: number;
+  user_id: string;
+  content: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export function getReplies(
+  d1: D1Database,
+  args: getRepliesParams
+): Query<D1Result<getRepliesRow>> {
+  const ps = d1
+    .prepare(getRepliesQuery)
+    .bind(args.messageId);
+  return {
+    then(onFulfilled?: (value: D1Result<getRepliesRow>) => void, onRejected?: (reason?: any) => void) {
+      ps.all<RawgetRepliesRow>()
+        .then((r: D1Result<RawgetRepliesRow>) => { return {
+          ...r,
+          results: r.results.map((raw: RawgetRepliesRow) => { return {
+            id: raw.id,
+            messageId: raw.message_id,
+            userId: raw.user_id,
+            content: raw.content,
+            createdAt: raw.created_at,
+            updatedAt: raw.updated_at,
+          }}),
+        }})
+        .then(onFulfilled).catch(onRejected);
+    },
+    batch() { return ps; },
+  }
+}
+
 const createMessageQuery = `-- name: createMessage :exec
 INSERT INTO Messages (user_id, category, content) VALUES (?1, ?2, ?3)`;
 

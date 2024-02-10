@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useId, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { twMerge } from "tailwind-merge";
-import { NavsTabLayout } from "#/app/_ui-components/NavsTabLayout";
-import { MessageListNav } from "../../_dependencies/MessageListNav";
+import { NavigationLayout } from "#/components/NavigationLayout";
+import { usePostComment } from "./use-post-comment";
 
 type PageProps = {
   params: { id: string };
@@ -15,9 +15,9 @@ export default function MessagesSomeoneDetailPage({
   params: { id },
 }: PageProps) {
   const textareaId = useId();
-  const [text, setText] = useState<string>("");
+  const { text, setText, handleAction } = usePostComment();
   return (
-    <NavsTabLayout Navigation={<MessageListNav someoneMessageCount={0} />}>
+    <NavigationLayout>
       <Link
         href="/messages/someone"
         className="inline-flex items-center gap-x-2.5 text-sm text-blue-600 decoration-2 font-semibold dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
@@ -65,6 +65,7 @@ export default function MessagesSomeoneDetailPage({
       </div>
       <button
         type="button"
+        onClick={handleAction}
         className={twMerge(
           "p-4 sm:p-5 flex items-center justify-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600",
           "mt-4 ml-auto",
@@ -72,6 +73,6 @@ export default function MessagesSomeoneDetailPage({
       >
         メッセージを送る
       </button>
-    </NavsTabLayout>
+    </NavigationLayout>
   );
 }

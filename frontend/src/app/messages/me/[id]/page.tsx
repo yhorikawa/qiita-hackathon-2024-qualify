@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { NavsTabLayout } from "#/app/_ui-components/NavsTabLayout";
-import { MessageListNav } from "../../_dependencies/MessageListNav";
+import { NavigationLayout } from "#/components/NavigationLayout";
 
 type PageProps = {
   params: { id: string };
@@ -8,7 +7,7 @@ type PageProps = {
 
 export default function MessagesDetailPage({ params: { id } }: PageProps) {
   return (
-    <NavsTabLayout Navigation={<MessageListNav someoneMessageCount={0} />}>
+    <NavigationLayout>
       <Link
         href="/messages/me"
         className="inline-flex items-center gap-x-2.5 text-sm text-blue-600 decoration-2 font-semibold dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
@@ -64,6 +63,6 @@ export default function MessagesDetailPage({ params: { id } }: PageProps) {
           </li>
         </ul>
       </section>
-    </NavsTabLayout>
+    </NavigationLayout>
   );
 }

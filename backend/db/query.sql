@@ -30,6 +30,24 @@ ORDER BY
   RANDOM()
 LIMIT @limit;
 
+-- name: getSentMessages :many
+SELECT
+  *
+FROM
+  Messages
+WHERE
+  user_id = @user_id
+ORDER BY
+  created_at DESC;
+
+-- name: getReplies :many
+SELECT
+  *
+FROM
+  Replies
+WHERE
+  message_id = @message_id;
+
 -- name: createMessage :exec
 INSERT INTO Messages (user_id, category, content) VALUES (@user_id, @category, @content);
 

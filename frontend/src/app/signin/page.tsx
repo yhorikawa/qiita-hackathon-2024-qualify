@@ -1,21 +1,13 @@
 "use client";
 
-import { useId } from "react";
-import useSWRMutation from "swr/mutation";
 import { twMerge } from "tailwind-merge";
-import { client } from "#/lib/client";
-import { AllPaddingLayout } from "./_ui-components/AllPaddingLayout";
 
-const clientAction = async () => {
-  // FIXME
-  // const result = await client.api.v1.auth.register.$post({});
-  // const { success } = await result.json();
-  const success = true;
-  return success;
-};
+import { useId } from "react";
+import { AllPaddingLayout } from "#/components/AllPaddingLayout";
+import { useSignIn } from "./use-signin";
 
-export default function Home() {
-  const { trigger } = useSWRMutation("/v1/api/register", clientAction);
+export default function SignInPage() {
+  const { userName, setUserName, handleAction } = useSignIn();
   const inputId = useId();
 
   return (
@@ -33,6 +25,8 @@ export default function Home() {
         <input
           type="text"
           id={inputId}
+          value={userName}
+          onInput={(e) => setUserName(e.currentTarget.value)}
           className={twMerge(
             "py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600",
           )}
@@ -40,7 +34,7 @@ export default function Home() {
         />
         <button
           type="button"
-          onClick={() => trigger()}
+          onClick={handleAction}
           className={twMerge(
             "p-4 sm:p-5 flex w-full items-center justify-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600",
             "mt-10",

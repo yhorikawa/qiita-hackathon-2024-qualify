@@ -1,11 +1,10 @@
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
-import { NavsTabLayout } from "#/app/_ui-components/NavsTabLayout";
-import { MessageListNav } from "../../_dependencies/MessageListNav";
+import { NavigationLayout } from "#/components/NavigationLayout";
 
 export default function MessagesSomeoneOpenPage() {
   return (
-    <NavsTabLayout Navigation={<MessageListNav someoneMessageCount={0} />}>
+    <NavigationLayout>
       <span className="w-[20rem] h-[20rem] flex justify-center items-center text-gray-500 font-bold bg-gray-200 dark:bg-gray-700 mx-auto">
         Placeholder
       </span>
@@ -24,6 +23,6 @@ export default function MessagesSomeoneOpenPage() {
           ボトルメッセージを開ける
         </Link>
       </div>
-    </NavsTabLayout>
+    </NavigationLayout>
   );
 }
