@@ -37,7 +37,7 @@ const routes = app
   )
 
   .post(
-    "/messages/:message_id/reply",
+    "/:messageId/replies",
     zValidator(
       "json",
       z.object({
@@ -47,14 +47,21 @@ const routes = app
     zValidator(
       "param",
       z.object({
-        message_id: z.string(),
+        messageId: z
+          .string()
+          .transform((v) => parseInt(v))
+          .refine((v) => !Number.isNaN(v), { message: "not a number" }),
       }),
     ),
     async (c) => {
       const payload = c.get("jwtPayload");
       const { content } = await c.req.valid("json");
-      const { message_id } = c.req.valid("param");
-      //const ok = createReplies({ content })
+      const { messageId } = c.req.valid("param");
+      await db.createReply(c.env.DB, {
+        messageId,
+        content,
+        userId: payload.id,
+      });
       c.status(201);
       return c.json({ success: true });
     },
@@ -71,7 +78,7 @@ const routes = app
     zValidator(
       "param",
       z.object({
-        message_id: z
+        messageId: z
           .string()
           .transform((v) => parseInt(v))
           .refine((v) => !Number.isNaN(v), { message: "not a number" }),
@@ -79,8 +86,8 @@ const routes = app
     ),
     async (c) => {
       const payload = c.get("jwtPayload");
-      const { message_id } = c.req.valid("param");
-      const message = await db.getMessage(c.env.DB, { id: message_id });
+      const { messageId } = c.req.valid("param");
+      const message = await db.getMessage(c.env.DB, { id: messageId });
       return c.json({ success: true, message });
     },
   );
