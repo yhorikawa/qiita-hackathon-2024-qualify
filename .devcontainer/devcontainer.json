@@ -21,7 +21,8 @@
         "biomejs.biome",
         "github.copilot",
         "EditorConfig.EditorConfig",
-        "bradlc.vscode-tailwindcss"
+        "bradlc.vscode-tailwindcss",
+        "humao.rest-client"
       ],
       "settings": {
         "eslint.enable": false,

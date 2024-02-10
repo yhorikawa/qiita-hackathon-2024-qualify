@@ -2,6 +2,7 @@ import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { jwt } from "hono/jwt";
 import { z } from "zod";
+import * as db from "../../gen/sqlc/querier";
 import { Bindings } from "./index";
 
 const app = new Hono<{ Bindings: Bindings }>();
@@ -22,7 +23,13 @@ const routes = app.post(
   async (c) => {
     const payload = c.get("jwtPayload");
     const { content } = await c.req.valid("json");
-    //const ok = createMessages({ content })
+    const createMessageParams = {
+      userId: payload.id,
+      category: "love",
+      content,
+    };
+
+    await db.createMessage(c.env.DB, createMessageParams);
     c.status(201);
     return c.json({ success: true });
   },
