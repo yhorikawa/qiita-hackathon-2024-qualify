@@ -11,16 +11,16 @@ app.use("*", async (c, next) => {
 });
 
 // TODO: 検証用に作ったので、実際にDeployするときは消す
-const routes = app.get("/:uuid", async (c) => {
+const routes = app.get("/:id", async (c) => {
   const payload = c.get("jwtPayload");
-  const uuid = c.req.param("uuid");
+  const id = c.req.param("id");
 
-  if (payload.uuid !== uuid) {
+  if (payload.id !== id) {
     c.status(401);
     return c.json({ message: "Unauthorized" });
   }
 
-  const user = await db.getUser(c.env.DB, { uuid });
+  const user = await db.getUser(c.env.DB, { id });
   if (!user) {
     c.status(404);
     return c.json({ message: "Not Found" });
