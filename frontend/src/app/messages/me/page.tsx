@@ -4,10 +4,7 @@ import { MessageListNav } from "../_dependencies/MessageListNav";
 
 export default function MessagesPage() {
   return (
-    <NavsTabLayout
-      tab={1}
-      Navigation={<MessageListNav someoneMessageCount={0} />}
-    >
+    <NavsTabLayout Navigation={<MessageListNav someoneMessageCount={0} />}>
       <ul className="flex flex-col">
         {[...Array(10)].fill("誰かから来たメッセージ").map((message, i) => (
           <li

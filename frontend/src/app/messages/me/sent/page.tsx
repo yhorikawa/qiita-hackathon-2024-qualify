@@ -4,10 +4,7 @@ import { MessageListNav } from "../../_dependencies/MessageListNav";
 
 export default function MessagesSentPage() {
   return (
-    <NavsTabLayout
-      tab={1}
-      Navigation={<MessageListNav someoneMessageCount={0} />}
-    >
+    <NavsTabLayout Navigation={<MessageListNav someoneMessageCount={0} />}>
       <span className="w-[20rem] h-[20rem] flex justify-center items-center text-gray-500 font-bold bg-gray-200 dark:bg-gray-700 mx-auto">
         Placeholder
       </span>
