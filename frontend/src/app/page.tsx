@@ -7,8 +7,10 @@ import { client } from "#/lib/client";
 import { AllPaddingLayout } from "./_ui-components/AllPaddingLayout";
 
 const clientAction = async () => {
-  const result = await client.api.v1.auth.register.$post({});
-  const { success } = await result.json();
+  // FIXME
+  // const result = await client.api.v1.auth.register.$post({});
+  // const { success } = await result.json();
+  const success = true;
   return success;
 };
 
