@@ -8,6 +8,7 @@ export type Bindings = {
   DB: D1Database;
   JWT_SECRET: string;
   ENVIROMENT: string;
+  OPENAI_API_KEY: string;
 };
 
 const api = new Hono<{ Bindings: Bindings }>()
