@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { NavigationLayout } from "#/components/NavigationLayout";
-import { useSentMessageList } from "./use-post-message-list";
+import { useBottoleMessageList } from "./use-bottle-message-list";
 
 export default function MessagesSomeoneListPage() {
-  const { data, isLoading } = useSentMessageList();
-  if (!isLoading || !data) return null;
+  const { data, isLoading } = useBottoleMessageList();
+  if (isLoading || !data) return null;
 
   return (
     <NavigationLayout>
