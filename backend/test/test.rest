@@ -11,3 +11,7 @@ Content-Type: application/json
 {
   "content": "Hello, World!"
 }
+
+###
+GET {{host}}/api/v1/messages/1
+Content-Type: application/json

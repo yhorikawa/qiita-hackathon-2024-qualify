@@ -122,3 +122,52 @@ export function createReply(
   }
 }
 
+const getMessageQuery = `-- name: getMessage :one
+SELECT id, user_id, category, content, created_at, updated_at FROM Messages WHERE id = ?1`;
+
+export type getMessageParams = {
+  id: number;
+};
+
+export type getMessageRow = {
+  id: number;
+  userId: string;
+  category: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type RawgetMessageRow = {
+  id: number;
+  user_id: string;
+  category: string;
+  content: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export function getMessage(
+  d1: D1Database,
+  args: getMessageParams
+): Query<getMessageRow | null> {
+  const ps = d1
+    .prepare(getMessageQuery)
+    .bind(args.id);
+  return {
+    then(onFulfilled?: (value: getMessageRow | null) => void, onRejected?: (reason?: any) => void) {
+      ps.first<RawgetMessageRow | null>()
+        .then((raw: RawgetMessageRow | null) => raw ? {
+          id: raw.id,
+          userId: raw.user_id,
+          category: raw.category,
+          content: raw.content,
+          createdAt: raw.created_at,
+          updatedAt: raw.updated_at,
+        } : null)
+        .then(onFulfilled).catch(onRejected);
+    },
+    batch() { return ps; },
+  }
+}
+

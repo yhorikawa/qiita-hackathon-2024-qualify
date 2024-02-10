@@ -9,3 +9,6 @@ INSERT INTO Messages (user_id, category, content) VALUES (@user_id, @category, @
 
 -- name: createReply :exec
 INSERT INTO Replies (message_id, user_id, content) VALUES (@message_id, @user_id, @content);
+
+-- name: getMessage :one
+SELECT * FROM Messages WHERE id = @id;
