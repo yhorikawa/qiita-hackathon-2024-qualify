@@ -19,7 +19,7 @@ export default function MessagesSomeoneDetailPage({
   return (
     <NavigationLayout>
       <Link
-        href="#"
+        href="/messages/someone"
         className="inline-flex items-center gap-x-2.5 text-sm text-blue-600 decoration-2 font-semibold dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
       >
         {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
@@ -37,7 +37,7 @@ export default function MessagesSomeoneDetailPage({
         >
           <path d="m15 18-6-6 6-6" />
         </svg>
-        すべての送信メッセージ
+        すべての届いたメッセージ
       </Link>
       <div className="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl py-5 px-4 md:p-5 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 mt-4 leading-6 text-base font-normal">
         あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。
