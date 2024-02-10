@@ -5,6 +5,8 @@ import { useId, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { twMerge } from "tailwind-merge";
 import { NavigationLayout } from "#/components/NavigationLayout";
+import { useMarkMessageReadEffect } from "#/components/use-mark-message-read";
+import { useBottoleMessage } from "./use-bottle-message";
 import { usePostComment } from "./use-post-comment";
 
 type PageProps = {
@@ -16,6 +18,9 @@ export default function MessagesSomeoneDetailPage({
 }: PageProps) {
   const textareaId = useId();
   const { text, setText, handleAction } = usePostComment();
+  const { data, isLoading } = useBottoleMessage();
+  useMarkMessageReadEffect(Number.parseInt(id, 10));
+  if (isLoading || !data) return null;
   return (
     <NavigationLayout>
       <Link
@@ -40,9 +45,7 @@ export default function MessagesSomeoneDetailPage({
         すべての届いたメッセージ
       </Link>
       <div className="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl py-5 px-4 md:p-5 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 mt-4 leading-6 text-base font-normal">
-        あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。
-        またそのなかでいっしょになったたくさんのひとたち、ファゼーロとロザーロ、羊飼のミーロや、顔の赤いこどもたち、地主のテーモ、山猫博士のボーガント・デストゥパーゴなど、いまこの暗い巨きな石の建物のなかで考えていると、みんなむかし風のなつかしい青い幻燈のように思われます。
-        では、わたくしはいつかの小さなみだしをつけながら、しずかにあの年のイーハトーヴォの五月から十月までを書きつけましょう。
+        {data.message?.content}
       </div>
       <div className={twMerge("pt-0.5", "mt-4")}>
         <label

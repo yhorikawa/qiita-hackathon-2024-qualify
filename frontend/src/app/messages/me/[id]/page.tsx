@@ -1,11 +1,22 @@
+"use client";
+
+import { format } from "date-fns";
 import Link from "next/link";
 import { NavigationLayout } from "#/components/NavigationLayout";
+import { useSentMessage } from "./use-sent-message";
+import { useSentMessageReplies } from "./use-sent-message-replies";
 
 type PageProps = {
   params: { id: string };
 };
 
 export default function MessagesDetailPage({ params: { id } }: PageProps) {
+  const { data, isLoading } = useSentMessage();
+  const { data: repliesData, isLoading: repliesIsLoading } =
+    useSentMessageReplies();
+
+  if (repliesIsLoading || !repliesData) return null;
+  if (isLoading || !data) return null;
   return (
     <NavigationLayout>
       <Link
@@ -30,37 +41,21 @@ export default function MessagesDetailPage({ params: { id } }: PageProps) {
         すべての送信メッセージ
       </Link>
       <div className="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl py-5 px-4 md:p-5 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 mt-4 leading-6 text-base font-normal">
-        あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。
-        またそのなかでいっしょになったたくさんのひとたち、ファゼーロとロザーロ、羊飼のミーロや、顔の赤いこどもたち、地主のテーモ、山猫博士のボーガント・デストゥパーゴなど、いまこの暗い巨きな石の建物のなかで考えていると、みんなむかし風のなつかしい青い幻燈のように思われます。
-        では、わたくしはいつかの小さなみだしをつけながら、しずかにあの年のイーハトーヴォの五月から十月までを書きつけましょう。
+        {data.message?.content}
       </div>
       <section className="mt-8">
         <p className="text-lg font-bold leading-normal">届いたメッセージ</p>
         <ul className="space-y-2 mt-4">
-          <li>
-            <div className="bg-white border border-gray-200 rounded-2xl p-5 space-y-3 dark:bg-slate-900 dark:border-gray-700">
-              誰かからのコメントが出てくるよ
-            </div>
-            <p className="mt-1 text-xs font-medium leading-4 text-gray-500">
-              2024/02/11 18:00
-            </p>
-          </li>
-          <li>
-            <div className="bg-white border border-gray-200 rounded-2xl p-5 space-y-3 dark:bg-slate-900 dark:border-gray-700">
-              誰かからのコメントが出てくるよ。長い場合は改行されて表示されるよね。長い場合はこうなる
-            </div>
-            <p className="mt-1 text-xs font-medium leading-4 text-gray-500">
-              2024/02/11 17:00
-            </p>
-          </li>
-          <li>
-            <div className="bg-white border border-gray-200 rounded-2xl p-5 space-y-3 dark:bg-slate-900 dark:border-gray-700">
-              誰かからのコメントが出てくるよ
-            </div>
-            <p className="mt-1 text-xs font-medium leading-4 text-gray-500">
-              2024/02/11 16:00
-            </p>
-          </li>
+          {repliesData.replies.map((reply) => (
+            <li>
+              <div className="bg-white border border-gray-200 rounded-2xl p-5 space-y-3 dark:bg-slate-900 dark:border-gray-700">
+                {reply.content}
+              </div>
+              <p className="mt-1 text-xs font-medium leading-4 text-gray-500">
+                {format(new Date(reply.createdAt), "yyyy/MM/dd hh:mm")}
+              </p>
+            </li>
+          ))}
         </ul>
       </section>
     </NavigationLayout>
