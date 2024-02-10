@@ -1,11 +1,10 @@
 "use client";
 
 import { useId } from "react";
-import { useFormState } from "react-dom";
 import useSWRMutation from "swr/mutation";
 import { twMerge } from "tailwind-merge";
 import { client } from "#/lib/client";
-import { action } from "./_dependencies/register-action";
+import { AllPaddingLayout } from "./_ui-components/AllPaddingLayout";
 
 const clientAction = async () => {
   const result = await client.api.v1.auth.register.$post({});
@@ -18,7 +17,7 @@ export default function Home() {
   const inputId = useId();
 
   return (
-    <main className="p-6 flex flex-col gap-4 min-h-svh">
+    <AllPaddingLayout>
       <span className="w-[20rem] h-[20rem] flex justify-center items-center text-gray-500 font-bold bg-gray-200 dark:bg-gray-700 mx-auto">
         Placeholder
       </span>
@@ -48,6 +47,6 @@ export default function Home() {
           登録する
         </button>
       </div>
-    </main>
+    </AllPaddingLayout>
   );
 }
