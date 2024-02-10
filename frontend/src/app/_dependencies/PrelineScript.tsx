@@ -20,6 +20,7 @@ export const PrelineScript = () => {
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     setTimeout(() => {
+      if (typeof window === "undefined") return;
       window.HSStaticMethods.autoInit();
     }, 100);
   }, [path]);
