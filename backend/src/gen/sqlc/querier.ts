@@ -72,3 +72,53 @@ export function getUser(
   }
 }
 
+const createMessageQuery = `-- name: createMessage :exec
+INSERT INTO Messages (user_id, category, content) VALUES (?1, ?2, ?3)`;
+
+export type createMessageParams = {
+  userId: string;
+  category: string;
+  content: string;
+};
+
+export function createMessage(
+  d1: D1Database,
+  args: createMessageParams
+): Query<D1Result> {
+  const ps = d1
+    .prepare(createMessageQuery)
+    .bind(args.userId, args.category, args.content);
+  return {
+    then(onFulfilled?: (value: D1Result) => void, onRejected?: (reason?: any) => void) {
+      ps.run()
+        .then(onFulfilled).catch(onRejected);
+    },
+    batch() { return ps; },
+  }
+}
+
+const createReplyQuery = `-- name: createReply :exec
+INSERT INTO Replies (message_id, user_id, content) VALUES (?1, ?2, ?3)`;
+
+export type createReplyParams = {
+  messageId: number;
+  userId: string;
+  content: string;
+};
+
+export function createReply(
+  d1: D1Database,
+  args: createReplyParams
+): Query<D1Result> {
+  const ps = d1
+    .prepare(createReplyQuery)
+    .bind(args.messageId, args.userId, args.content);
+  return {
+    then(onFulfilled?: (value: D1Result) => void, onRejected?: (reason?: any) => void) {
+      ps.run()
+        .then(onFulfilled).catch(onRejected);
+    },
+    batch() { return ps; },
+  }
+}
+
