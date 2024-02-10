@@ -19,7 +19,6 @@ const routes = app
       expires: new Date(new Date().setDate(new Date().getDate() + 7)),
       httpOnly: true,
       sameSite: "None",
-      // secure:  c.env.ENVIROMENT === "dev" ? false : true,
       secure: true,
       path: "/",
     });
