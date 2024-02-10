@@ -20,7 +20,9 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={inter.className}>
-        {children}
+        <main className="bg-slate-200">
+          <div className="mx-auto max-w-md bg-slate-100">{children}</div>
+        </main>
         <PrelineScript />
       </body>
     </html>
