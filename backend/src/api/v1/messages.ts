@@ -36,6 +36,40 @@ const routes = app
     },
   )
 
+  .get("/categorized", async (c) => {
+    const payload = c.get("jwtPayload");
+    const userId = payload.id;
+
+    const mostFrequentCategory = await db.findMostFrequentCategory(c.env.DB, {
+      userId,
+    });
+
+    const category = mostFrequentCategory?.category || "";
+    const messages = await db.getCategorizedMessages(c.env.DB, {
+      userId,
+      category,
+      limit: 10,
+    });
+
+    const limit = 10 - messages.results.length;
+    const randomMessage = await db.getRandMessages(c.env.DB, {
+      userId,
+      limit: limit,
+    });
+
+    return c.json({
+      success: true,
+      messages: messages.results.concat(randomMessage.results),
+    });
+  })
+
+  .get("/sent", async (c) => {
+    const payload = c.get("jwtPayload");
+    const userId = payload.id;
+    const messages = await db.getSentMessages(c.env.DB, { userId });
+    return c.json({ success: true, messages: messages.results });
+  })
+
   .get(
     "/:messageId",
     zValidator(
@@ -53,30 +87,6 @@ const routes = app
       return c.json({ success: true, message });
     },
   )
-
-  .get("/categorized", async (c) => {
-    const payload = c.get("jwtPayload");
-    const userId = payload.id;
-
-    const mostFrequentCategory = await db.findMostFrequentCategory(c.env.DB, {
-      userId,
-    });
-    const category = mostFrequentCategory?.category || "love";
-    const messages = await db.getCategorizedMessages(c.env.DB, {
-      userId,
-      category,
-      limit: 10,
-    });
-
-    return c.json({ success: true, messages: messages.results });
-  })
-
-  .get("/sent", async (c) => {
-    const payload = c.get("jwtPayload");
-    const userId = payload.id;
-    const messages = await db.getSentMessages(c.env.DB, { userId });
-    return c.json({ success: true, messages: messages.results });
-  })
 
   .post(
     "/:messageId/replies",

@@ -21,6 +21,14 @@ const routes = app
       const { userName } = await c.req.valid("json");
       const id = crypto.randomUUID();
 
+      if (await db.getUser(c.env.DB, { userName })) {
+        c.status(409);
+        return c.json({
+          success: false,
+          message: "User already exists",
+        });
+      }
+
       await db.createUsers(c.env.DB, { id, userName });
       const accessToken = await sign({ id: id }, c.env.JWT_SECRET);
       setCookie(c, "accessToken", accessToken, {
