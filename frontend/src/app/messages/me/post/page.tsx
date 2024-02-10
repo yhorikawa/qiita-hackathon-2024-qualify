@@ -14,7 +14,7 @@ export default function MessagesPage() {
   return (
     <NavigationLayout>
       <Link
-        href="#"
+        href="/messages/someone"
         className="inline-flex items-center gap-x-2.5 text-sm text-blue-600 decoration-2 font-semibold dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
       >
         {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
