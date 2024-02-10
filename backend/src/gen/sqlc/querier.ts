@@ -178,6 +178,67 @@ export function getCategorizedMessages(
   }
 }
 
+const getRandMessagesQuery = `-- name: getRandMessages :many
+SELECT
+  id, user_id, category, content, created_at, updated_at
+FROM
+  Messages
+WHERE
+  user_id != ?1
+ORDER BY
+  RANDOM()
+LIMIT ?2`;
+
+export type getRandMessagesParams = {
+  userId: string;
+  limit: number;
+};
+
+export type getRandMessagesRow = {
+  id: number;
+  userId: string;
+  category: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type RawgetRandMessagesRow = {
+  id: number;
+  user_id: string;
+  category: string;
+  content: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export function getRandMessages(
+  d1: D1Database,
+  args: getRandMessagesParams
+): Query<D1Result<getRandMessagesRow>> {
+  const ps = d1
+    .prepare(getRandMessagesQuery)
+    .bind(args.userId, args.limit);
+  return {
+    then(onFulfilled?: (value: D1Result<getRandMessagesRow>) => void, onRejected?: (reason?: any) => void) {
+      ps.all<RawgetRandMessagesRow>()
+        .then((r: D1Result<RawgetRandMessagesRow>) => { return {
+          ...r,
+          results: r.results.map((raw: RawgetRandMessagesRow) => { return {
+            id: raw.id,
+            userId: raw.user_id,
+            category: raw.category,
+            content: raw.content,
+            createdAt: raw.created_at,
+            updatedAt: raw.updated_at,
+          }}),
+        }})
+        .then(onFulfilled).catch(onRejected);
+    },
+    batch() { return ps; },
+  }
+}
+
 const getSentMessagesQuery = `-- name: getSentMessages :many
 SELECT
   id, user_id, category, content, created_at, updated_at

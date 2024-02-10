@@ -43,14 +43,24 @@ const routes = app
     const mostFrequentCategory = await db.findMostFrequentCategory(c.env.DB, {
       userId,
     });
-    const category = mostFrequentCategory?.category || "love";
+
+    const category = mostFrequentCategory?.category || "";
     const messages = await db.getCategorizedMessages(c.env.DB, {
       userId,
       category,
       limit: 10,
     });
 
-    return c.json({ success: true, messages: messages.results });
+    const limit = 10 - messages.results.length;
+    const randomMessage = await db.getRandMessages(c.env.DB, {
+      userId,
+      limit: limit,
+    });
+
+    return c.json({
+      success: true,
+      messages: messages.results.concat(randomMessage.results),
+    });
   })
 
   .get("/sent", async (c) => {
