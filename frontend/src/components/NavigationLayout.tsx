@@ -1,14 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useMemo } from "react";
 import { twMerge } from "tailwind-merge";
+import { useBottoleMessageList } from "./use-bottle-message-list";
+import { useMarkMessageRead } from "./use-mark-message-read";
 import { useTab } from "./use-tab";
 
 export const NavigationLayout = ({ children }: PropsWithChildren<unknown>) => {
-  // FIXME
-  const someoneMessageCount = 0;
+  const { data, isLoading } = useBottoleMessageList();
+  const [readMessages] = useMarkMessageRead();
+  const someoneMessageCount = useMemo(() => {
+    return (
+      data?.messages.filter((message) => !readMessages?.includes(message.id))
+        .length ?? 0
+    );
+  }, [data?.messages, readMessages]);
   const { activeTab } = useTab();
+  if (isLoading || !data) return null;
   return (
     <div className="pt-6">
       <div className="border-b border-gray-200 dark:border-gray-700">
@@ -45,7 +54,7 @@ export const NavigationLayout = ({ children }: PropsWithChildren<unknown>) => {
                     : "",
                 )}
               >
-                {someoneMessageCount}
+                {someoneMessageCount >= 9 ? "9+" : someoneMessageCount}
               </span>
             )}
           </Link>

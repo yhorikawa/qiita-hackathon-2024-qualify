@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { NavigationLayout } from "#/components/NavigationLayout";
-import { useBottoleMessageList } from "./use-bottle-message-list";
+import { useBottoleMessageList } from "#/components/use-bottle-message-list";
 
 export default function MessagesSomeoneListPage() {
   const { data, isLoading } = useBottoleMessageList();

@@ -5,6 +5,7 @@ import { useId, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { twMerge } from "tailwind-merge";
 import { NavigationLayout } from "#/components/NavigationLayout";
+import { useMarkMessageReadEffect } from "#/components/use-mark-message-read";
 import { useBottoleMessage } from "./use-bottle-message";
 import { usePostComment } from "./use-post-comment";
 
@@ -18,6 +19,7 @@ export default function MessagesSomeoneDetailPage({
   const textareaId = useId();
   const { text, setText, handleAction } = usePostComment();
   const { data, isLoading } = useBottoleMessage();
+  useMarkMessageReadEffect(Number.parseInt(id, 10));
   if (isLoading || !data) return null;
   return (
     <NavigationLayout>
