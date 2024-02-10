@@ -38,6 +38,35 @@ export default function MessagesDetailPage({ params: { id } }: PageProps) {
         またそのなかでいっしょになったたくさんのひとたち、ファゼーロとロザーロ、羊飼のミーロや、顔の赤いこどもたち、地主のテーモ、山猫博士のボーガント・デストゥパーゴなど、いまこの暗い巨きな石の建物のなかで考えていると、みんなむかし風のなつかしい青い幻燈のように思われます。
         では、わたくしはいつかの小さなみだしをつけながら、しずかにあの年のイーハトーヴォの五月から十月までを書きつけましょう。
       </div>
+      <section className="mt-8">
+        <p className="text-lg font-bold leading-normal">届いたメッセージ</p>
+        <ul className="space-y-2 mt-4">
+          <li>
+            <div className="bg-white border border-gray-200 rounded-2xl p-5 space-y-3 dark:bg-slate-900 dark:border-gray-700">
+              誰かからのコメントが出てくるよ
+            </div>
+            <p className="mt-1 text-xs font-medium leading-4 text-gray-500">
+              2024/02/11 18:00
+            </p>
+          </li>
+          <li>
+            <div className="bg-white border border-gray-200 rounded-2xl p-5 space-y-3 dark:bg-slate-900 dark:border-gray-700">
+              誰かからのコメントが出てくるよ。長い場合は改行されて表示されるよね。長い場合はこうなる
+            </div>
+            <p className="mt-1 text-xs font-medium leading-4 text-gray-500">
+              2024/02/11 17:00 
+            </p>
+          </li>
+          <li>
+            <div className="bg-white border border-gray-200 rounded-2xl p-5 space-y-3 dark:bg-slate-900 dark:border-gray-700">
+              誰かからのコメントが出てくるよ
+            </div>
+            <p className="mt-1 text-xs font-medium leading-4 text-gray-500">
+              2024/02/11 16:00
+            </p>
+          </li>
+        </ul>
+      </section>
     </NavsTabLayout>
   );
 }
