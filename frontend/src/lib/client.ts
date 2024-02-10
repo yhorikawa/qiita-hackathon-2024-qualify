@@ -1,5 +1,7 @@
 import { hc } from "hono/client";
 import { AppType } from "../../../backend/src/index";
 
-// TODO: 環境変数からURLを取得するようにする
-export const client = hc<AppType>("http://localhost:3000");
+const ENDPOINT =
+  process.env.NEXT_PUBLIC_API_ENDPOINT || "http://localhost:3000";
+
+export const client = hc<AppType>(ENDPOINT);
