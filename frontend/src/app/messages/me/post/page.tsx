@@ -12,10 +12,7 @@ export default function MessagesPage() {
   const textareaId = useId();
   const [text, setText] = useState<string>("");
   return (
-    <NavsTabLayout
-      tab={1}
-      Navigation={<MessageListNav someoneMessageCount={0} />}
-    >
+    <NavsTabLayout Navigation={<MessageListNav someoneMessageCount={0} />}>
       <Link
         href="#"
         className="inline-flex items-center gap-x-2.5 text-sm text-blue-600 decoration-2 font-semibold dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
