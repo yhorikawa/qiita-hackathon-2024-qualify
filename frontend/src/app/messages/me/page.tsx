@@ -6,7 +6,7 @@ export default function MessagesMeListPage() {
   return (
     <NavsTabLayout Navigation={<MessageListNav someoneMessageCount={0} />}>
       <ul className="flex flex-col">
-        {[...Array(10)].fill("誰かから来たメッセージ").map((message, i) => (
+        {[...Array(10)].fill("過去に送信したメッセージ").map((message, i) => (
           <li
             key={`list-item-${
               // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
@@ -14,7 +14,10 @@ export default function MessagesMeListPage() {
             }`}
             className="inline-flex w-full items-center gap-x-2 text-sm font-medium bg-white border border-gray-200 text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-slate-900 dark:border-gray-700 dark:text-white"
           >
-            <Link href="#" className="w-full inline-block py-3 px-4">
+            <Link
+              href={`/messages/me/${i}`}
+              className="w-full inline-block py-3 px-4"
+            >
               {message}
             </Link>
           </li>

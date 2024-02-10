@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import { NavsTabLayout } from "#/app/_ui-components/NavsTabLayout";
 import { MessageListNav } from "#/app/messages/_dependencies/MessageListNav";
@@ -9,15 +10,15 @@ export default function MessagesSentPage() {
         Placeholder
       </span>
 
-      <button
-        type="button"
+      <Link
+        href="/messages/someone"
         className={twMerge(
           "p-4 sm:p-5 flex w-full items-center justify-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600",
           "mt-10",
         )}
       >
         届いたメッセージの一覧にもどる
-      </button>
+      </Link>
     </NavsTabLayout>
   );
 }

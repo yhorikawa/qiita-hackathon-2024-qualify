@@ -10,7 +10,7 @@ export default function MessagesDetailPage({ params: { id } }: PageProps) {
   return (
     <NavsTabLayout Navigation={<MessageListNav someoneMessageCount={0} />}>
       <Link
-        href="#"
+        href="/messages/me"
         className="inline-flex items-center gap-x-2.5 text-sm text-blue-600 decoration-2 font-semibold dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
       >
         {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
@@ -51,7 +51,7 @@ export default function MessagesDetailPage({ params: { id } }: PageProps) {
               誰かからのコメントが出てくるよ。長い場合は改行されて表示されるよね。長い場合はこうなる
             </div>
             <p className="mt-1 text-xs font-medium leading-4 text-gray-500">
-              2024/02/11 17:00 
+              2024/02/11 17:00
             </p>
           </li>
           <li>
