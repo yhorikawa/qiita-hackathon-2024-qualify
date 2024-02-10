@@ -13,5 +13,13 @@ Content-Type: application/json
 }
 
 ###
+POST {{host}}/api/v1/messages/2/replies
+Content-Type: application/json
+
+{
+  "content": "Hello, Reply!"
+}
+
+###
 GET {{host}}/api/v1/messages/1
 Content-Type: application/json

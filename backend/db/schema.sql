@@ -1,5 +1,3 @@
-DROP TABLE IF EXISTS Users;
-
 CREATE TABLE IF NOT EXISTS Users (
   id TEXT PRIMARY KEY,
   created_at TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
@@ -26,4 +24,3 @@ CREATE TABLE IF NOT EXISTS Replies (
   FOREIGN KEY (message_id) REFERENCES Messages(id),
   FOREIGN KEY (user_id) REFERENCES Users(id)
 );
-
