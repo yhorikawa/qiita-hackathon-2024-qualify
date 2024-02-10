@@ -1,23 +1,26 @@
+"use client";
+
 import Link from "next/link";
 import { NavigationLayout } from "#/components/NavigationLayout";
+import { useBottoleMessageList } from "./use-bottle-message-list";
 
 export default function MessagesSomeoneListPage() {
+  const { data, isLoading } = useBottoleMessageList();
+  if (isLoading || !data) return null;
+
   return (
     <NavigationLayout>
       <ul className="flex flex-col">
-        {[...Array(10)].fill("届いたメッセージ").map((message, i) => (
+        {data.messages.map((message) => (
           <li
-            key={`list-item-${
-              // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-              i
-            }`}
+            key={message.id}
             className="inline-flex w-full items-center gap-x-2 text-sm font-medium bg-white border border-gray-200 text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-slate-900 dark:border-gray-700 dark:text-white"
           >
             <Link
-              href={`/messages/someone/${i}`}
+              href={`/messages/someone/${message.id}`}
               className="w-full inline-block py-3 px-4"
             >
-              {message}
+              {message.content}
             </Link>
           </li>
         ))}
