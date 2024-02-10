@@ -2,6 +2,7 @@
 
 import TextareaAutosize from "react-textarea-autosize";
 
+import Link from "next/link";
 import { useId, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { NavsTabLayout } from "#/app/_ui-components/NavsTabLayout";
@@ -11,11 +12,29 @@ export default function MessagesPage() {
   const textareaId = useId();
   const [text, setText] = useState<string>("");
   return (
-    <NavsTabLayout
-      tab={1}
-      Navigation={<MessageListNav someoneMessageCount={0} />}
-    >
-      <div className="pt-0.5">
+    <NavsTabLayout Navigation={<MessageListNav someoneMessageCount={0} />}>
+      <Link
+        href="#"
+        className="inline-flex items-center gap-x-2.5 text-sm text-blue-600 decoration-2 font-semibold dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+      >
+        {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
+        <svg
+          className="flex-shrink-0 w-4 h-4"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        すべての届いたメッセージ
+      </Link>
+      <div className={twMerge("pt-0.5", "mt-4")}>
         <label
           htmlFor={textareaId}
           className="block text-sm mb-2 dark:text-white font-bold"
