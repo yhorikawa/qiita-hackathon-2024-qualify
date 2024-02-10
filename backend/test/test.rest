@@ -29,15 +29,16 @@ Content-Type: application/json
 }
 
 ###
-GET {{host}}/api/v1/messages/1
-Content-Type: application/json
-
-###
 GET {{host}}/api/v1/messages/categorized
 Content-Type: application/json
 
 ###
 GET {{host}}/api/v1/messages/sent
+Content-Type: application/json
+
+
+###
+GET {{host}}/api/v1/messages/1
 Content-Type: application/json
 
 ###

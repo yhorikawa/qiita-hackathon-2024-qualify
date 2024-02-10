@@ -36,24 +36,6 @@ const routes = app
     },
   )
 
-  .get(
-    "/:messageId",
-    zValidator(
-      "param",
-      z.object({
-        messageId: z
-          .string()
-          .transform((v) => parseInt(v))
-          .refine((v) => !Number.isNaN(v), { message: "not a number" }),
-      }),
-    ),
-    async (c) => {
-      const { messageId } = c.req.valid("param");
-      const message = await db.getMessage(c.env.DB, { id: messageId });
-      return c.json({ success: true, message });
-    },
-  )
-
   .get("/categorized", async (c) => {
     const payload = c.get("jwtPayload");
     const userId = payload.id;
@@ -77,6 +59,24 @@ const routes = app
     const messages = await db.getSentMessages(c.env.DB, { userId });
     return c.json({ success: true, messages: messages.results });
   })
+
+  .get(
+    "/:messageId",
+    zValidator(
+      "param",
+      z.object({
+        messageId: z
+          .string()
+          .transform((v) => parseInt(v))
+          .refine((v) => !Number.isNaN(v), { message: "not a number" }),
+      }),
+    ),
+    async (c) => {
+      const { messageId } = c.req.valid("param");
+      const message = await db.getMessage(c.env.DB, { id: messageId });
+      return c.json({ success: true, message });
+    },
+  )
 
   .post(
     "/:messageId/replies",
