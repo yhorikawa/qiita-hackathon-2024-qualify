@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { NavsTabLayout } from "#/app/_ui-components/NavsTabLayout";
-import { MessageListNav } from "../../_dependencies/MessageListNav";
+import { NavigationLayout } from "#/components/NavigationLayout";
 
 type PageProps = {
   params: { id: string };
@@ -8,7 +7,7 @@ type PageProps = {
 
 export default function MessagesDetailPage({ params: { id } }: PageProps) {
   return (
-    <NavsTabLayout Navigation={<MessageListNav someoneMessageCount={0} />}>
+    <NavigationLayout>
       <Link
         href="#"
         className="inline-flex items-center gap-x-2.5 text-sm text-blue-600 decoration-2 font-semibold dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
@@ -51,7 +50,7 @@ export default function MessagesDetailPage({ params: { id } }: PageProps) {
               誰かからのコメントが出てくるよ。長い場合は改行されて表示されるよね。長い場合はこうなる
             </div>
             <p className="mt-1 text-xs font-medium leading-4 text-gray-500">
-              2024/02/11 17:00 
+              2024/02/11 17:00
             </p>
           </li>
           <li>
@@ -64,6 +63,6 @@ export default function MessagesDetailPage({ params: { id } }: PageProps) {
           </li>
         </ul>
       </section>
-    </NavsTabLayout>
+    </NavigationLayout>
   );
 }

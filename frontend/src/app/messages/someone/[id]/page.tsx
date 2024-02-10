@@ -4,8 +4,7 @@ import Link from "next/link";
 import { useId, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { twMerge } from "tailwind-merge";
-import { NavsTabLayout } from "#/app/_ui-components/NavsTabLayout";
-import { MessageListNav } from "../../_dependencies/MessageListNav";
+import { NavigationLayout } from "#/components/NavigationLayout";
 
 type PageProps = {
   params: { id: string };
@@ -17,7 +16,7 @@ export default function MessagesSomeoneDetailPage({
   const textareaId = useId();
   const [text, setText] = useState<string>("");
   return (
-    <NavsTabLayout Navigation={<MessageListNav someoneMessageCount={0} />}>
+    <NavigationLayout>
       <Link
         href="#"
         className="inline-flex items-center gap-x-2.5 text-sm text-blue-600 decoration-2 font-semibold dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
@@ -72,6 +71,6 @@ export default function MessagesSomeoneDetailPage({
       >
         メッセージを送る
       </button>
-    </NavsTabLayout>
+    </NavigationLayout>
   );
 }

@@ -5,14 +5,13 @@ import TextareaAutosize from "react-textarea-autosize";
 import Link from "next/link";
 import { useId, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { NavsTabLayout } from "#/app/_ui-components/NavsTabLayout";
-import { MessageListNav } from "../../_dependencies/MessageListNav";
+import { NavigationLayout } from "#/components/NavigationLayout";
 
 export default function MessagesPage() {
   const textareaId = useId();
   const [text, setText] = useState<string>("");
   return (
-    <NavsTabLayout Navigation={<MessageListNav someoneMessageCount={0} />}>
+    <NavigationLayout>
       <Link
         href="#"
         className="inline-flex items-center gap-x-2.5 text-sm text-blue-600 decoration-2 font-semibold dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
@@ -62,6 +61,6 @@ export default function MessagesPage() {
       >
         メッセージを送る
       </button>
-    </NavsTabLayout>
+    </NavigationLayout>
   );
 }

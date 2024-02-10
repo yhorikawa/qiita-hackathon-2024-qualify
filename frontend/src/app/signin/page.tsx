@@ -3,7 +3,7 @@
 import { twMerge } from "tailwind-merge";
 
 import { useId } from "react";
-import { AllPaddingLayout } from "../_ui-components/AllPaddingLayout";
+import { AllPaddingLayout } from "#/components/AllPaddingLayout";
 import { useSignIn } from "./use-signin";
 
 export default function SignInPage() {
