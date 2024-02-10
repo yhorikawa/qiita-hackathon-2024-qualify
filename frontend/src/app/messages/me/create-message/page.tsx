@@ -1,10 +1,11 @@
 "use client";
 
-import { useId, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
+
+import { useId, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { NavsTabLayout } from "#/app/_ui-components/NavsTabLayout";
-import { MessageListNav } from "../_dependencies/MessageListNav";
+import { MessageListNav } from "../../_dependencies/MessageListNav";
 
 export default function MessagesPage() {
   const textareaId = useId();

@@ -1,5 +1,5 @@
 import { NavsTabLayout } from "#/app/_ui-components/NavsTabLayout";
-import { MessageListNav } from "./_dependencies/MessageListNav";
+import { MessageListNav } from "../_dependencies/MessageListNav";
 import { MyMessagesTabContent } from "./_dependencies/MyMessagesTabContent";
 
 export default function MessagesPage() {
