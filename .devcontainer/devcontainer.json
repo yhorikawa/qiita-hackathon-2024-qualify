@@ -20,7 +20,8 @@
       "extensions": [
         "biomejs.biome",
         "github.copilot",
-        "EditorConfig.EditorConfig"
+        "EditorConfig.EditorConfig",
+        "bradlc.vscode-tailwindcss"
       ],
       "settings": {
         "eslint.enable": false,

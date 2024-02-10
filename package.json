@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "dev": "turbo dev",
     "format": "biome check . --apply-unsafe"
   },
   "license": "Unlicense",
   "devDependencies": {
-    "@biomejs/biome": "1.5.3"
+    "@biomejs/biome": "1.5.3",
+    "turbo": "^1.12.3"
   }
 }
