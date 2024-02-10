@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="ja">
       <body className={inter.className}>
         <main className="bg-slate-200">
-          <div className="mx-auto max-w-md bg-slate-100 min-h-svh">
+          <div className="mx-auto max-w-md bg-slate-100 min-h-svh relative">
             {children}
           </div>
         </main>
