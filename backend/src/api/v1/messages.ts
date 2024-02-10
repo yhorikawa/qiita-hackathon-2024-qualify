@@ -86,10 +86,13 @@ const routes = app
       limit: 10,
     });
 
+    const ids =
+      messages.results.length !== 0 ? messages.results.map((m) => m.id) : [0];
     const limit = 10 - messages.results.length;
     const randomMessage = await db.getRandMessages(c.env.DB, {
       userId,
-      limit: limit,
+      ids,
+      limit,
     });
 
     return c.json({

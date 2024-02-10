@@ -30,6 +30,18 @@ ORDER BY
   RANDOM()
 LIMIT @limit;
 
+-- name: getRandMessages :many
+SELECT
+  *
+FROM
+  Messages
+WHERE
+  user_id != @user_id
+  and id not in (sqlc.slice(ids))
+ORDER BY
+  RANDOM()
+LIMIT @limit;
+
 -- name: getSentMessages :many
 SELECT
   *
