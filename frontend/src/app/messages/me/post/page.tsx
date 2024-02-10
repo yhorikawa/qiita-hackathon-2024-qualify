@@ -3,13 +3,14 @@
 import TextareaAutosize from "react-textarea-autosize";
 
 import Link from "next/link";
-import { useId, useState } from "react";
+import { useId } from "react";
 import { twMerge } from "tailwind-merge";
 import { NavigationLayout } from "#/components/NavigationLayout";
+import { usePostMessage } from "./use-post-message";
 
 export default function MessagesPage() {
   const textareaId = useId();
-  const [text, setText] = useState<string>("");
+  const { text, setText, handleAction } = usePostMessage();
   return (
     <NavigationLayout>
       <Link
@@ -54,6 +55,7 @@ export default function MessagesPage() {
       </div>
       <button
         type="button"
+        onClick={handleAction}
         className={twMerge(
           "p-4 sm:p-5 flex items-center justify-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600",
           "mt-4 ml-auto",

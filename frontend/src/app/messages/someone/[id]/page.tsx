@@ -5,6 +5,7 @@ import { useId, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { twMerge } from "tailwind-merge";
 import { NavigationLayout } from "#/components/NavigationLayout";
+import { usePostComment } from "./use-post-comment";
 
 type PageProps = {
   params: { id: string };
@@ -14,7 +15,7 @@ export default function MessagesSomeoneDetailPage({
   params: { id },
 }: PageProps) {
   const textareaId = useId();
-  const [text, setText] = useState<string>("");
+  const { text, setText, handleAction } = usePostComment();
   return (
     <NavigationLayout>
       <Link
@@ -64,6 +65,7 @@ export default function MessagesSomeoneDetailPage({
       </div>
       <button
         type="button"
+        onClick={handleAction}
         className={twMerge(
           "p-4 sm:p-5 flex items-center justify-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600",
           "mt-4 ml-auto",
