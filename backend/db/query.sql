@@ -4,6 +4,32 @@ INSERT INTO Users (id, user_name) VALUES (@id, @user_name);
 -- name: getUser :one
 SELECT * FROM Users WHERE user_name = @user_name;
 
+-- name: findMostFrequentCategory :one
+SELECT
+  category,
+  COUNT(category) AS count
+FROM
+  Messages
+WHERE
+  user_id = @user_id
+GROUP BY
+  category
+ORDER BY
+  count DESC
+LIMIT 1;
+
+-- name: getCategorizedMessages :many
+SELECT
+  *
+FROM
+  Messages
+WHERE
+  user_id != @user_id
+  AND category == @category
+ORDER BY
+  RANDOM()
+LIMIT @limit;
+
 -- name: createMessage :exec
 INSERT INTO Messages (user_id, category, content) VALUES (@user_id, @category, @content);
 
