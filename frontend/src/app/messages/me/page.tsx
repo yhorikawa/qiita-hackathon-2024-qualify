@@ -6,7 +6,7 @@ import { useSentMessageList } from "./use-sent-message-list";
 
 export default function MessagesMeListPage() {
   const { data, isLoading } = useSentMessageList();
-  if (!isLoading || !data) return null;
+  if (isLoading || !data) return null;
   return (
     <NavigationLayout>
       <ul className="flex flex-col">
@@ -21,7 +21,7 @@ export default function MessagesMeListPage() {
           </li>
         ))}
       </ul>
-      <button className="absolute right-6 bottom-8" type="button">
+      <Link href="/messages/me/post" className="absolute right-6 bottom-8">
         <span className="m-1 inline-flex justify-center items-center w-[46px] h-[46px] rounded-full bg-blue-600 text-white dark:bg-blue-500">
           {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
           <svg
@@ -58,7 +58,7 @@ export default function MessagesMeListPage() {
             />
           </svg>
         </span>
-      </button>
+      </Link>
     </NavigationLayout>
   );
 }
