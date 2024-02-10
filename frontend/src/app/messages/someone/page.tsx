@@ -2,11 +2,11 @@ import Link from "next/link";
 import { NavsTabLayout } from "#/app/_ui-components/NavsTabLayout";
 import { MessageListNav } from "../_dependencies/MessageListNav";
 
-export default function MessagesMeListPage() {
+export default function MessagesSomeoneListPage() {
   return (
     <NavsTabLayout Navigation={<MessageListNav someoneMessageCount={0} />}>
       <ul className="flex flex-col">
-        {[...Array(10)].fill("誰かから来たメッセージ").map((message, i) => (
+        {[...Array(10)].fill("届いたメッセージ").map((message, i) => (
           <li
             key={`list-item-${
               // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
