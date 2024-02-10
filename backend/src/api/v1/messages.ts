@@ -3,7 +3,25 @@ import { Hono } from "hono";
 import { jwt } from "hono/jwt";
 import { z } from "zod";
 import * as db from "../../gen/sqlc/querier";
+import { fetchChatGPTResponse } from "../../util/openai";
 import { Bindings } from "./index";
+
+const categories = [
+  "love",
+  "work",
+  "education",
+  "health",
+  "mental-health",
+  "finances",
+  "growth",
+  "life",
+  "loss",
+  "identity",
+  "parenting",
+  "sexuality",
+  "communication",
+  "relationships",
+];
 
 const app = new Hono<{ Bindings: Bindings }>();
 
@@ -24,9 +42,26 @@ const routes = app
     async (c) => {
       const payload = c.get("jwtPayload");
       const { content } = await c.req.valid("json");
+
+      const messages = [
+        { role: "system", content: systemChat },
+        {
+          role: "user",
+          content: content,
+        },
+      ];
+      const response = await fetchChatGPTResponse(
+        c.env.OPENAI_API_KEY,
+        messages,
+      );
+
+      const category = categories.includes(response.choices[0].message.content)
+        ? response.choices[0].message.content
+        : "other";
+
       const createMessageParams = {
         userId: payload.id,
-        category: "love",
+        category: category,
         content,
       };
 
@@ -138,3 +173,29 @@ const routes = app
   );
 
 export default routes;
+
+const systemChat = `
+  これらのカテゴリーのどれに当てはまるかだけをお答えします
+  - love
+  - work
+  - education
+  - health
+  - mental-health
+  - finances
+  - growth
+  - life
+  - loss
+  - identity
+  - parenting
+  - sexuality
+  - communication
+  - relationships
+
+  判断したら、日本語を含まずカテゴリー名のみを出力してください。
+  以降の返答に以下に定義する特定のワードが含まれる場合は指示に従ってカテゴリーのみを出力します
+
+  - 以降の文章に恋人、パートナー、彼氏、彼女、デート、好き、愛、別れ、不倫、浮気、信頼、疑念、遠距離、相性、片思い、恋愛関係、異性、結婚、モテるなどのキーワードが部分一致でも含まれる場合は「love」で出力
+  - 以降の文章に「結婚」が含まれる場合は「love」で出力
+  - 以降の文章に「会社」が含まれる場合は「work」で出力
+  - 以降の文章に「育児」「子ども」というキーワードが含まれない限り「parenting」で出力しない
+`;
