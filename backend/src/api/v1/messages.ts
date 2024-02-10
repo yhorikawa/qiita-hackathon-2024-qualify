@@ -36,6 +36,48 @@ const routes = app
     },
   )
 
+  .get(
+    "/:messageId",
+    zValidator(
+      "param",
+      z.object({
+        messageId: z
+          .string()
+          .transform((v) => parseInt(v))
+          .refine((v) => !Number.isNaN(v), { message: "not a number" }),
+      }),
+    ),
+    async (c) => {
+      const { messageId } = c.req.valid("param");
+      const message = await db.getMessage(c.env.DB, { id: messageId });
+      return c.json({ success: true, message });
+    },
+  )
+
+  .get("/categorized", async (c) => {
+    const payload = c.get("jwtPayload");
+    const userId = payload.id;
+
+    const mostFrequentCategory = await db.findMostFrequentCategory(c.env.DB, {
+      userId,
+    });
+    const category = mostFrequentCategory?.category || "love";
+    const messages = await db.getCategorizedMessages(c.env.DB, {
+      userId,
+      category,
+      limit: 10,
+    });
+
+    return c.json({ success: true, messages: messages.results });
+  })
+
+  .get("/sent", async (c) => {
+    const payload = c.get("jwtPayload");
+    const userId = payload.id;
+    const messages = await db.getSentMessages(c.env.DB, { userId });
+    return c.json({ success: true, messages: messages.results });
+  })
+
   .post(
     "/:messageId/replies",
     zValidator(
@@ -67,25 +109,8 @@ const routes = app
     },
   )
 
-  .get("/categorized", async (c) => {
-    const payload = c.get("jwtPayload");
-    const userId = payload.id;
-
-    const mostFrequentCategory = await db.findMostFrequentCategory(c.env.DB, {
-      userId,
-    });
-    const category = mostFrequentCategory?.category || "love";
-    const messages = await db.getCategorizedMessages(c.env.DB, {
-      userId,
-      category,
-      limit: 10,
-    });
-
-    return c.json({ success: true, messages: messages.results });
-  })
-
   .get(
-    "/:message_id",
+    "/:messageId/replies",
     zValidator(
       "param",
       z.object({
@@ -96,10 +121,9 @@ const routes = app
       }),
     ),
     async (c) => {
-      const payload = c.get("jwtPayload");
       const { messageId } = c.req.valid("param");
-      const message = await db.getMessage(c.env.DB, { id: messageId });
-      return c.json({ success: true, message });
+      const replies = await db.getReplies(c.env.DB, { messageId });
+      return c.json({ success: true, replies: replies.results });
     },
   );
 
