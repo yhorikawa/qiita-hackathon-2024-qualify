@@ -1,28 +1,27 @@
+"use client";
+
 import Link from "next/link";
 import { NavigationLayout } from "#/components/NavigationLayout";
+import { useSentMessageList } from "./use-sent-message-list";
 
 export default function MessagesMeListPage() {
+  const { data, isLoading } = useSentMessageList();
+  if (isLoading || !data) return null;
   return (
     <NavigationLayout>
       <ul className="flex flex-col">
-        {[...Array(10)].fill("過去に送信したメッセージ").map((message, i) => (
+        {data.messages.map((message, i) => (
           <li
-            key={`list-item-${
-              // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-              i
-            }`}
+            key={message.id}
             className="inline-flex w-full items-center gap-x-2 text-sm font-medium bg-white border border-gray-200 text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-slate-900 dark:border-gray-700 dark:text-white"
           >
-            <Link
-              href={`/messages/me/${i}`}
-              className="w-full inline-block py-3 px-4"
-            >
-              {message}
+            <Link href="#" className="w-full inline-block py-3 px-4">
+              {message.content}
             </Link>
           </li>
         ))}
       </ul>
-      <button className="absolute right-6 bottom-8" type="button">
+      <Link href="/messages/me/post" className="absolute right-6 bottom-8">
         <span className="m-1 inline-flex justify-center items-center w-[46px] h-[46px] rounded-full bg-blue-600 text-white dark:bg-blue-500">
           {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
           <svg
@@ -59,7 +58,7 @@ export default function MessagesMeListPage() {
             />
           </svg>
         </span>
-      </button>
+      </Link>
     </NavigationLayout>
   );
 }
