@@ -67,10 +67,21 @@ const routes = app
     },
   )
 
-  .get("/", async (c) => {
+  .get("/categorized", async (c) => {
     const payload = c.get("jwtPayload");
-    //const messages = getMessages()
-    return c.json({ success: true, messages: ["hello", "world"] });
+    const userId = payload.id;
+
+    const mostFrequentCategory = await db.findMostFrequentCategory(c.env.DB, {
+      userId,
+    });
+    const category = mostFrequentCategory?.category || "love";
+    const messages = await db.getCategorizedMessages(c.env.DB, {
+      userId,
+      category,
+      limit: 10,
+    });
+
+    return c.json({ success: true, messages: messages.results });
   })
 
   .get(

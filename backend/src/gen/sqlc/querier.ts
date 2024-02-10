@@ -76,6 +76,108 @@ export function getUser(
   }
 }
 
+const findMostFrequentCategoryQuery = `-- name: findMostFrequentCategory :one
+SELECT
+  category,
+  COUNT(category) AS count
+FROM
+  Messages
+WHERE
+  user_id = ?1
+GROUP BY
+  category
+ORDER BY
+  count DESC
+LIMIT 1`;
+
+export type findMostFrequentCategoryParams = {
+  userId: string;
+};
+
+export type findMostFrequentCategoryRow = {
+  category: string;
+  count: number;
+};
+
+export function findMostFrequentCategory(
+  d1: D1Database,
+  args: findMostFrequentCategoryParams
+): Query<findMostFrequentCategoryRow | null> {
+  const ps = d1
+    .prepare(findMostFrequentCategoryQuery)
+    .bind(args.userId);
+  return {
+    then(onFulfilled?: (value: findMostFrequentCategoryRow | null) => void, onRejected?: (reason?: any) => void) {
+      ps.first<findMostFrequentCategoryRow | null>()
+        .then(onFulfilled).catch(onRejected);
+    },
+    batch() { return ps; },
+  }
+}
+
+const getCategorizedMessagesQuery = `-- name: getCategorizedMessages :many
+SELECT
+  id, user_id, category, content, created_at, updated_at
+FROM
+  Messages
+WHERE
+  user_id != ?1
+  AND category == ?2
+ORDER BY
+  RANDOM()
+LIMIT ?3`;
+
+export type getCategorizedMessagesParams = {
+  userId: string;
+  category: string;
+  limit: number;
+};
+
+export type getCategorizedMessagesRow = {
+  id: number;
+  userId: string;
+  category: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type RawgetCategorizedMessagesRow = {
+  id: number;
+  user_id: string;
+  category: string;
+  content: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export function getCategorizedMessages(
+  d1: D1Database,
+  args: getCategorizedMessagesParams
+): Query<D1Result<getCategorizedMessagesRow>> {
+  const ps = d1
+    .prepare(getCategorizedMessagesQuery)
+    .bind(args.userId, args.category, args.limit);
+  return {
+    then(onFulfilled?: (value: D1Result<getCategorizedMessagesRow>) => void, onRejected?: (reason?: any) => void) {
+      ps.all<RawgetCategorizedMessagesRow>()
+        .then((r: D1Result<RawgetCategorizedMessagesRow>) => { return {
+          ...r,
+          results: r.results.map((raw: RawgetCategorizedMessagesRow) => { return {
+            id: raw.id,
+            userId: raw.user_id,
+            category: raw.category,
+            content: raw.content,
+            createdAt: raw.created_at,
+            updatedAt: raw.updated_at,
+          }}),
+        }})
+        .then(onFulfilled).catch(onRejected);
+    },
+    batch() { return ps; },
+  }
+}
+
 const createMessageQuery = `-- name: createMessage :exec
 INSERT INTO Messages (user_id, category, content) VALUES (?1, ?2, ?3)`;
 
