@@ -185,12 +185,14 @@ FROM
   Messages
 WHERE
   user_id != ?1
+  and id not in (/*SLICE:ids*/?)
 ORDER BY
   RANDOM()
-LIMIT ?2`;
+LIMIT ?3`;
 
 export type getRandMessagesParams = {
   userId: string;
+  ids: number[];
   limit: number;
 };
 
@@ -216,9 +218,13 @@ export function getRandMessages(
   d1: D1Database,
   args: getRandMessagesParams
 ): Query<D1Result<getRandMessagesRow>> {
+  let query = getRandMessagesQuery;
+  const params: any[] = [args.userId, args.ids[0], args.limit];
+  query = query.replace("(/*SLICE:ids*/?)", expandedParam(2, args.ids.length, params.length));
+  params.push(...args.ids.slice(1));
   const ps = d1
-    .prepare(getRandMessagesQuery)
-    .bind(args.userId, args.limit);
+    .prepare(query)
+    .bind(...params);
   return {
     then(onFulfilled?: (value: D1Result<getRandMessagesRow>) => void, onRejected?: (reason?: any) => void) {
       ps.all<RawgetRandMessagesRow>()
@@ -454,3 +460,10 @@ export function getMessage(
   }
 }
 
+function expandedParam(n: number, len: number, last: number): string {
+  const params: number[] = [n];
+  for (let i = 1; i < len; i++) {
+    params.push(last + i);
+  }
+  return "(" + params.map((x: number) => "?" + x).join(", ") + ")";
+}
