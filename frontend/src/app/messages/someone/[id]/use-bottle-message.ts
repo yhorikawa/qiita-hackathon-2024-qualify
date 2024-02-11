@@ -17,8 +17,5 @@ export const useBottoleMessage = () => {
   const swr = useSWR(["/api/v1/messages/:messageId", id], ([, messageId]) =>
     fetcher(messageId),
   );
-  useEffect(() => {
-    if (swr.error) throw swr.error;
-  }, [swr.error]);
   return swr;
 };
