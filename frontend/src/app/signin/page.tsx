@@ -2,10 +2,12 @@
 
 import { twMerge } from "tailwind-merge";
 
+import Lottie from "lottie-react";
 import { useId } from "react";
 import EntranceImage from "#/app/assets/entrance-image.png";
 import { AllPaddingLayout } from "#/components/AllPaddingLayout";
 import { useShouldNotAuthGuardEffect } from "#/components/use-is-signin";
+import animationData from "./animation.json";
 import { useSignIn } from "./use-signin";
 
 export default function SignInPage() {
@@ -15,12 +17,12 @@ export default function SignInPage() {
 
   return (
     <AllPaddingLayout>
-      <img
-        src={EntranceImage.src}
-        alt="ボトルメッセージのイラスト"
-        className="mx-auto inline-block max-w-full select-none"
+      <Lottie
+        animationData={animationData}
+        loop
+        autoplay
+        className="w-full min-h-[240px] rounded-3xl overflow-hidden m-auto mt-14"
       />
-
       <div className="mt-20">
         <label htmlFor={inputId} className="block text-sm font-medium mb-2">
           ユーザー名

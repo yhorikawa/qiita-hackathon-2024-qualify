@@ -54,7 +54,7 @@ export const NavigationLayout = ({ children }: PropsWithChildren<unknown>) => {
           </Link>
         </nav>
       </div>
-      <div className="p-6 min-h-lvh" role="tabpanel">
+      <div className="p-6 min-h-[calc(100lvh_-_72px-79px)]" role="tabpanel">
         {children}
       </div>
       <FooterLayout />
