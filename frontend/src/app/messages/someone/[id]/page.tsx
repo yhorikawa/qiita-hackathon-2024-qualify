@@ -25,7 +25,7 @@ export default function MessagesSomeoneDetailPage({
     <NavigationLayout>
       <Link
         href="/messages/someone"
-        className="inline-flex items-center gap-x-2.5 text-sm text-blue-600 decoration-2 font-semibold dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+        className="inline-flex items-center gap-x-2.5 text-sm text-blue-600 decoration-2 font-semibold"
       >
         {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
         <svg
@@ -44,14 +44,11 @@ export default function MessagesSomeoneDetailPage({
         </svg>
         すべての届いたメッセージ
       </Link>
-      <div className="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl py-5 px-4 md:p-5 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 mt-4 leading-6 text-base font-normal">
+      <div className="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl py-5 px-4 md:p-5 mt-4 leading-6 text-base font-normal">
         {data.message?.content}
       </div>
       <div className={twMerge("pt-0.5", "mt-4")}>
-        <label
-          htmlFor={textareaId}
-          className="block text-sm mb-2 dark:text-white font-bold"
-        >
+        <label htmlFor={textareaId} className="block text-sm mb-2 font-bold">
           このメッセージに返信する
         </label>
         <TextareaAutosize
@@ -59,7 +56,7 @@ export default function MessagesSomeoneDetailPage({
           value={text}
           onInput={(e) => setText(e.currentTarget.value)}
           className={twMerge(
-            "py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600",
+            "py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none",
           )}
           minRows={10}
           cacheMeasurements={true}
@@ -70,7 +67,7 @@ export default function MessagesSomeoneDetailPage({
         type="button"
         onClick={handleAction}
         className={twMerge(
-          "px-4 py-3.5 sm:p-5 flex items-center justify-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600",
+          "px-4 py-3.5 sm:p-5 flex items-center justify-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none",
           "mt-4 ml-auto",
         )}
       >
