@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge";
 
 import { useId } from "react";
 import { AllPaddingLayout } from "#/components/AllPaddingLayout";
+import EntranceImage from "./entrance-image.png";
 import { useSignIn } from "./use-signin";
 
 export default function SignInPage() {
@@ -12,9 +13,12 @@ export default function SignInPage() {
 
   return (
     <AllPaddingLayout>
-      <span className="w-[20rem] h-[20rem] flex justify-center items-center text-gray-500 font-bold bg-gray-200 dark:bg-gray-700 mx-auto">
-        Placeholder
-      </span>
+      <img
+        src={EntranceImage.src}
+        alt="ボトルメッセージのイラスト"
+        className="mx-auto inline-block max-w-full select-none"
+      />
+
       <div className="mt-20">
         <label
           htmlFor={inputId}
