@@ -10,8 +10,5 @@ const fetcher = async (_: string) => {
 
 export const useBottoleMessageList = () => {
   const swr = useSWR("/api/v1/messages/categorized", fetcher);
-  useEffect(() => {
-    if (swr.error) throw swr.error;
-  }, [swr.error]);
   return swr;
 };

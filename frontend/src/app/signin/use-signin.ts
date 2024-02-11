@@ -50,20 +50,19 @@ export const useSignIn = () => {
   );
   const { trigger } = useSWRMutation("/v1/api/register", fetcher);
   const [userName, setUserName] = useState("");
-  const router = useRouter();
   const action = useCallback(async () => {
     try {
       const isSignIn = await signInTrigger({ userName });
       if (!isSignIn) return;
-      router.push("/messages/me");
+      window.location.href = "/messages/me";
     } catch (error) {
       if (error instanceof AlreadySignInError) {
         const result = await trigger({ userName });
         if (!result) return;
-        router.push("/messages/me");
+        window.location.href = "/messages/me";
       }
     }
-  }, [userName, trigger, router, signInTrigger]);
+  }, [userName, trigger, signInTrigger]);
   const handleAction = useCallback(() => action(), [action]);
 
   return {

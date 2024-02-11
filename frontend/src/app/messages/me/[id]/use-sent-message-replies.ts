@@ -18,8 +18,5 @@ export const useSentMessageReplies = () => {
     ["/api/v1/messages/:messageId/replies", id],
     ([, messageId]) => fetcher(messageId),
   );
-  useEffect(() => {
-    if (swr.error) throw swr.error;
-  }, [swr.error]);
   return swr;
 };

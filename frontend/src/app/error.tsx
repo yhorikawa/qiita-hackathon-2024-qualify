@@ -1,8 +1,8 @@
+"use client";
+
 import EntranceImage from "#/app/assets/entrance-image.png";
 
-export const runtime = "edge";
-
-export default function NotFound() {
+export default function ErrorPage() {
   return (
     <>
       <div className="mx-auto max-w-md bg-slate-100 min-h-svh relative flex flex-col justify-center items-center">
@@ -24,10 +24,10 @@ export default function NotFound() {
 
           <div className="text-center py-10 px-4 sm:px-6 lg:px-8">
             <h1 className="block text-7xl font-bold text-gray-800 sm:text-9xl dark:text-white">
-              404
+              Error
             </h1>
             <p className="mt-3 text-gray-600 dark:text-gray-400">
-              該当のページが見つかりません
+              システム障害が発生しました
             </p>
           </div>
         </div>
