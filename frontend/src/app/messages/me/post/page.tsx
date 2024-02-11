@@ -10,7 +10,7 @@ import { usePostMessage } from "./use-post-message";
 
 export default function MessagesPage() {
   const textareaId = useId();
-  const { text, setText, handleAction } = usePostMessage();
+  const { text, setText, handleAction, isLoading } = usePostMessage();
   return (
     <NavigationLayout>
       <Link
@@ -63,6 +63,21 @@ export default function MessagesPage() {
       >
         メッセージを送る
       </button>
+      {isLoading && (
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-50">
+          <div className="w-full h-full bg-black bg-opacity-80 flex justify-center items-center">
+            <div className="inline-flex justify-center items-center h-[2.875rem] w-[2.875rem] text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+              <span
+                className="animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent text-white rounded-full"
+                role="status"
+                aria-label="loading"
+              >
+                <span className="sr-only">Loading...</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
     </NavigationLayout>
   );
 }

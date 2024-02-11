@@ -18,16 +18,27 @@ export const usePostMessage = () => {
   const onSuccess = useCallback(() => {
     router.push("/messages/me/sent");
   }, [router]);
-  const { trigger } = useSWRMutation("postMessage", fetcher, { onSuccess });
+  const { trigger } = useSWRMutation("postMessage", fetcher, {
+    onSuccess,
+  });
   const [text, setText] = useState<string>("");
-  const action = useCallback(() => {
-    trigger({ content: text });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleAction = useCallback(async () => {
+    setIsLoading(true); // ボタンをクリックしたときにローディング状態を true に設定します
+    try {
+      await trigger({ content: text });
+    } catch (error) {
+      console.error("Error occurred:", error);
+    } finally {
+      setIsLoading(false); // API リクエストが完了したらローディング状態を false に設定します
+    }
   }, [trigger, text]);
-  const handleAction = useCallback(() => action(), [action]);
 
   return {
     text,
     setText,
     handleAction,
+    isLoading,
   };
 };
