@@ -3,8 +3,8 @@
 import { twMerge } from "tailwind-merge";
 
 import { useId } from "react";
+import EntranceImage from "#/app/assets/entrance-image.png";
 import { AllPaddingLayout } from "#/components/AllPaddingLayout";
-import EntranceImage from "./entrance-image.png";
 import { useSignIn } from "./use-signin";
 
 export default function SignInPage() {
