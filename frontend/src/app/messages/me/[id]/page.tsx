@@ -21,7 +21,7 @@ export default function MessagesDetailPage({ params: { id } }: PageProps) {
     <NavigationLayout>
       <Link
         href="/messages/me"
-        className="inline-flex items-center gap-x-2.5 text-sm text-blue-600 decoration-2 font-semibold dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+        className="inline-flex items-center gap-x-2.5 text-sm text-blue-600 decoration-2 font-semibold"
       >
         {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
         <svg
@@ -40,7 +40,7 @@ export default function MessagesDetailPage({ params: { id } }: PageProps) {
         </svg>
         すべての送信メッセージ
       </Link>
-      <div className="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl py-5 px-4 md:p-5 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 mt-4 leading-6 text-base font-normal">
+      <div className="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl py-5 px-4 md:p-5 mt-4 leading-6 text-base font-normal">
         {data.message?.content}
       </div>
       <section className="mt-8">
@@ -48,7 +48,7 @@ export default function MessagesDetailPage({ params: { id } }: PageProps) {
         <ul className="space-y-2 mt-4">
           {repliesData.replies.map((reply) => (
             <li>
-              <div className="bg-white border border-gray-200 rounded-2xl p-5 space-y-3 dark:bg-slate-900 dark:border-gray-700">
+              <div className="bg-white border border-gray-200 rounded-2xl p-5 space-y-3">
                 {reply.content}
               </div>
               <p className="mt-1 text-xs font-medium leading-4 text-gray-500">

@@ -10,7 +10,7 @@ export default function NotFound() {
           <header className="mb-auto flex justify-center z-50 w-full py-4">
             <nav className="px-4 sm:px-6 lg:px-8" aria-label="Global">
               <a
-                className="flex-none text-xl font-semibold sm:text-3xl dark:text-white"
+                className="flex-none text-xl font-semibold sm:text-3xl"
                 href="/signin"
               >
                 <img
@@ -23,12 +23,10 @@ export default function NotFound() {
           </header>
 
           <div className="text-center py-10 px-4 sm:px-6 lg:px-8">
-            <h1 className="block text-7xl font-bold text-gray-800 sm:text-9xl dark:text-white">
+            <h1 className="block text-7xl font-bold text-gray-800 sm:text-9xl">
               404
             </h1>
-            <p className="mt-3 text-gray-600 dark:text-gray-400">
-              該当のページが見つかりません
-            </p>
+            <p className="mt-3 text-gray-600">該当のページが見つかりません</p>
           </div>
         </div>
       </div>

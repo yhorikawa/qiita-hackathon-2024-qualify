@@ -10,12 +10,12 @@ import { usePostMessage } from "./use-post-message";
 
 export default function MessagesPage() {
   const textareaId = useId();
-  const { text, setText, handleAction } = usePostMessage();
+  const { text, setText, handleAction, isLoading } = usePostMessage();
   return (
     <NavigationLayout>
       <Link
         href="/messages/me"
-        className="inline-flex items-center gap-x-2.5 text-sm text-blue-600 decoration-2 font-semibold dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+        className="inline-flex items-center gap-x-2.5 text-sm text-blue-600 decoration-2 font-semibold"
       >
         {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
         <svg
@@ -35,10 +35,7 @@ export default function MessagesPage() {
         すべての送信メッセージ
       </Link>
       <div className={twMerge("pt-0.5", "mt-4")}>
-        <label
-          htmlFor={textareaId}
-          className="block text-sm mb-2 dark:text-white font-bold"
-        >
+        <label htmlFor={textareaId} className="block text-sm mb-2 font-bold">
           送るメッセージ
         </label>
         <TextareaAutosize
@@ -46,7 +43,7 @@ export default function MessagesPage() {
           value={text}
           onInput={(e) => setText(e.currentTarget.value)}
           className={twMerge(
-            "py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600",
+            "py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none",
           )}
           minRows={10}
           cacheMeasurements={true}
@@ -57,12 +54,27 @@ export default function MessagesPage() {
         type="button"
         onClick={handleAction}
         className={twMerge(
-          "px-4 py-3.5 sm:p-5 flex items-center justify-center gap-x-2 text-base font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600",
+          "px-4 py-3.5 sm:p-5 flex items-center justify-center gap-x-2 text-base font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none",
           "mt-4 ml-auto",
         )}
       >
         メッセージを送る
       </button>
+      {isLoading && (
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-50">
+          <div className="w-full h-full bg-black bg-opacity-80 flex justify-center items-center">
+            <div className="inline-flex justify-center items-center h-[2.875rem] w-[2.875rem] text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+              <span
+                className="animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent text-white rounded-full"
+                role="status"
+                aria-label="loading"
+              >
+                <span className="sr-only">Loading...</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
     </NavigationLayout>
   );
 }
