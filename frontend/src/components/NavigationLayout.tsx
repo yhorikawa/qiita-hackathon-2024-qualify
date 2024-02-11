@@ -6,16 +6,11 @@ import { twMerge } from "tailwind-merge";
 import { useBottoleMessageList } from "./use-bottle-message-list";
 import { useMarkMessageRead } from "./use-mark-message-read";
 import { useTab } from "./use-tab";
+import { useUnreadMessageCount } from "./use-unread-message-count";
 
 export const NavigationLayout = ({ children }: PropsWithChildren<unknown>) => {
   const { data, isLoading } = useBottoleMessageList();
-  const [readMessages] = useMarkMessageRead();
-  const someoneMessageCount = useMemo(() => {
-    return (
-      data?.messages.filter((message) => !readMessages?.includes(message.id))
-        .length ?? 0
-    );
-  }, [data?.messages, readMessages]);
+  const { count } = useUnreadMessageCount();
   const { activeTab } = useTab();
   if (isLoading || !data) return null;
   return (
@@ -35,7 +30,7 @@ export const NavigationLayout = ({ children }: PropsWithChildren<unknown>) => {
             自分のメッセージ
           </Link>
           <Link
-            href="/messages/someone"
+            href={count > 0 ? "/messages/someone/open" : "/messages/someone"}
             className={twMerge(
               "w-full justify-center py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none active",
               activeTab === "someone"
@@ -45,14 +40,14 @@ export const NavigationLayout = ({ children }: PropsWithChildren<unknown>) => {
             role="tab"
           >
             誰かのメッセージ
-            {someoneMessageCount > 0 && (
+            {count > 0 && (
               <span
                 className={twMerge(
                   "ms-1 py-0.5 px-1.5 rounded-full text-xs font-medium bg-gray-200 text-gray-800",
                   activeTab === "someone" ? "bg-blue-100 text-blue-600" : "",
                 )}
               >
-                {someoneMessageCount >= 9 ? "9+" : someoneMessageCount}
+                {count >= 9 ? "9+" : count}
               </span>
             )}
           </Link>

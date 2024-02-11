@@ -38,7 +38,7 @@ const routes = app
         secure: c.env.ENVIROMENT === "dev" ? false : true,
       });
       c.status(201);
-      return c.json({ success: true });
+      return c.json({ success: true, id });
     },
   )
 
@@ -66,7 +66,7 @@ const routes = app
         sameSite: "Lax",
         secure: c.env.ENVIROMENT === "dev" ? false : true,
       });
-      return c.json({ success: true });
+      return c.json({ success: true, id: results.id });
     },
   );
 

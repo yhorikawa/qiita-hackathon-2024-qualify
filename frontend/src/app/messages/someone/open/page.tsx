@@ -4,9 +4,11 @@ import Lottie from "lottie-react";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import { NavigationLayout } from "#/components/NavigationLayout";
+import { useUnreadMessageCount } from "#/components/use-unread-message-count";
 import animationData from "./animation.json";
 
 export default function MessagesSomeoneOpenPage() {
+  const { count } = useUnreadMessageCount();
   return (
     <NavigationLayout>
       <Lottie
@@ -17,7 +19,7 @@ export default function MessagesSomeoneOpenPage() {
       />
       <div className="mt-5 text-center">
         <p className="w-full inline-flex justify-center text-lg leading-normal font-semibold">
-          5件の新しいボトルが
+          {count}件の新しいボトルが
           <br />
           流れ着いています
         </p>

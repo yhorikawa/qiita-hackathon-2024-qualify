@@ -10,8 +10,5 @@ const fetcher = async (_: string) => {
 
 export const useSentMessageList = () => {
   const swr = useSWR("/api/v1/messages/sent", fetcher);
-  useEffect(() => {
-    if (swr.error) throw swr.error;
-  }, [swr.error]);
   return swr;
 };
