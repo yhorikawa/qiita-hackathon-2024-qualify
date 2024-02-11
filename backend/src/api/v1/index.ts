@@ -3,6 +3,7 @@ import { Hono } from "hono";
 import { csrf } from "hono/csrf";
 import authApi from "./auth";
 import messagesApi from "./messages";
+import usersAPI from "./users";
 
 export type Bindings = {
   DB: D1Database;
@@ -26,6 +27,7 @@ const api = new Hono<{ Bindings: Bindings }>()
     return c.text("Hello Hono!");
   })
   .route("/auth", authApi)
-  .route("/messages", messagesApi);
+  .route("/messages", messagesApi)
+  .route("/users", usersAPI);
 
 export default api;
