@@ -10,7 +10,7 @@ app.use("*", async (c, next) => {
 });
 
 const routes = app.get("/me", async (c) => {
-  return c.json({ sucess: true });
+  return c.json({ success: true });
 });
 
 export default routes;
