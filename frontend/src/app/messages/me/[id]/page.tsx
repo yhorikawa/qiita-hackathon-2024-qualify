@@ -40,7 +40,7 @@ export default function MessagesDetailPage({ params: { id } }: PageProps) {
         </svg>
         すべての送信メッセージ
       </Link>
-      <div className="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl py-5 px-4 md:p-5 mt-4 leading-6 text-base font-normal">
+      <div className="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl py-5 px-4 md:p-5 mt-4 leading-7 text-base font-normal">
         {data.message?.content}
       </div>
       <section className="mt-8">

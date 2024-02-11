@@ -15,13 +15,13 @@ export const NavigationLayout = ({ children }: PropsWithChildren<unknown>) => {
   const { activeTab } = useTab();
   if (isLoading || !data) return null;
   return (
-    <div className="pt-6">
-      <div className="border-b border-gray-200">
+    <div>
+      <div className="border-b border-gray-200 bg-white pt-6">
         <nav className="flex space-x-2 gap-2" aria-label="Tabs" role="tablist">
           <Link
             href="/messages/me"
             className={twMerge(
-              "w-full justify-center py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none active",
+              "w-full justify-center py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm whitespace-nowrap text-[#1F2937] hover:text-blue-600 focus:outline-none focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none active",
               activeTab === "me"
                 ? "font-semibold border-blue-600 text-blue-600"
                 : "",
@@ -33,7 +33,7 @@ export const NavigationLayout = ({ children }: PropsWithChildren<unknown>) => {
           <Link
             href={count > 0 ? "/messages/someone/open" : "/messages/someone"}
             className={twMerge(
-              "w-full justify-center py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none active",
+              "w-full justify-center py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm whitespace-nowrap text-[#1F2937] hover:text-blue-600 focus:outline-none focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none active",
               activeTab === "someone"
                 ? "font-semibold border-blue-600 text-blue-600"
                 : "",

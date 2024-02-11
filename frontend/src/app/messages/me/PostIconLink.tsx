@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 export const PostIconLink = () => (
-  <Link href="/messages/me/post" className="absolute right-6 bottom-8">
-    <span className="m-1 inline-flex justify-center items-center w-[46px] h-[46px] rounded-full bg-blue-600 text-white">
+  <Link href="/messages/me/post" className="absolute right-6 bottom-20">
+    <span className="m-1 inline-flex justify-center items-center w-[46px] h-[46px] rounded-full bg-blue-600 text-white shadow">
       {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
       <svg
         className="flex-shrink-0 w-5 h-5"

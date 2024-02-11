@@ -31,10 +31,13 @@ export default function SignInPage() {
           value={userName}
           onInput={(e) => setUserName(e.currentTarget.value)}
           className={twMerge(
-            "py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none",
+            "py-3 px-4 block w-full border-gray-200 rounded-lg text-base focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none",
           )}
           placeholder="ユーザー名を入力"
         />
+        <p className="text-gray-400 text-sm font-medium leading-normal mt-2">
+          半角英数字のみご利用になれます
+        </p>
         <button
           type="button"
           onClick={handleAction}
