@@ -8,8 +8,8 @@ const inter = Inter({ subsets: ["latin"] });
 export const runtime = "edge";
 
 export const metadata: Metadata = {
-  title: "ボトルメール(仮)",
-  description: "ボトルメール(仮)は、ボトルメールを送受信できるサービスです。",
+  title: "Bottle Links",
+  description: "Bottle Linksは、ボトルメールを送受信できるサービスです。",
 };
 
 export default function RootLayout({
