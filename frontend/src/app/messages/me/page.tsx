@@ -18,7 +18,7 @@ export default function MessagesMeListPage() {
           >
             <Link
               href={`/messages/me/${message.id}`}
-              className="w-full inline-block py-3 px-4"
+              className="w-full inline-block py-3 px-4 truncate"
             >
               {message.content}
             </Link>
