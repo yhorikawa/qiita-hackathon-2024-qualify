@@ -15,8 +15,8 @@ export default function MessagesSomeoneOpenPage() {
         autoplay
         className="w-[168px] h-[168px] rounded-3xl overflow-hidden m-auto mt-14"
       />
-      <div className="mt-5">
-        <p className="w-full inline-flex justify-center text-lg leading-normal font-semibold text-center">
+      <div className="mt-5 text-center">
+        <p className="w-full inline-flex justify-center text-lg leading-normal font-semibold">
           5件の新しいボトルが
           <br />
           流れ着いています
@@ -24,7 +24,7 @@ export default function MessagesSomeoneOpenPage() {
         <Link
           href="/messages/someone"
           className={twMerge(
-            "p-4 sm:p-5 flex w-52 m-auto items-center justify-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600",
+            "px-4 py-3.5 sm:p-5 inline-flex min-w-52 items-center justify-center  gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600",
             "mt-16",
           )}
         >

@@ -70,7 +70,7 @@ export default function MessagesSomeoneDetailPage({
         type="button"
         onClick={handleAction}
         className={twMerge(
-          "p-4 sm:p-5 flex items-center justify-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600",
+          "px-4 py-3.5 sm:p-5 flex items-center justify-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600",
           "mt-4 ml-auto",
         )}
       >

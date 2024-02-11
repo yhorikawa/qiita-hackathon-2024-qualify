@@ -14,7 +14,7 @@ export default function MessagesPage() {
   return (
     <NavigationLayout>
       <Link
-        href="/messages/someone"
+        href="/messages/me"
         className="inline-flex items-center gap-x-2.5 text-sm text-blue-600 decoration-2 font-semibold dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
       >
         {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
@@ -32,7 +32,7 @@ export default function MessagesPage() {
         >
           <path d="m15 18-6-6 6-6" />
         </svg>
-        すべての届いたメッセージ
+        すべての送信メッセージ
       </Link>
       <div className={twMerge("pt-0.5", "mt-4")}>
         <label
@@ -57,7 +57,7 @@ export default function MessagesPage() {
         type="button"
         onClick={handleAction}
         className={twMerge(
-          "p-4 sm:p-5 flex items-center justify-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600",
+          "px-4 py-3.5 sm:p-5 flex items-center justify-center gap-x-2 text-base font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600",
           "mt-4 ml-auto",
         )}
       >
