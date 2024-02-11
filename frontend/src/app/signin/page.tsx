@@ -5,9 +5,11 @@ import { twMerge } from "tailwind-merge";
 import { useId } from "react";
 import EntranceImage from "#/app/assets/entrance-image.png";
 import { AllPaddingLayout } from "#/components/AllPaddingLayout";
+import { useShouldNotAuthGuardEffect } from "#/components/use-is-signin";
 import { useSignIn } from "./use-signin";
 
 export default function SignInPage() {
+  useShouldNotAuthGuardEffect();
   const { userName, setUserName, handleAction } = useSignIn();
   const inputId = useId();
 
