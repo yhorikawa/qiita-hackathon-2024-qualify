@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { PropsWithChildren, useMemo } from "react";
 import { twMerge } from "tailwind-merge";
+import { FooterLayout } from "./FooterLayout";
 import { useBottoleMessageList } from "./use-bottle-message-list";
 import { useMarkMessageRead } from "./use-mark-message-read";
 import { useTab } from "./use-tab";
@@ -53,9 +54,10 @@ export const NavigationLayout = ({ children }: PropsWithChildren<unknown>) => {
           </Link>
         </nav>
       </div>
-      <div className="p-6" role="tabpanel">
+      <div className="p-6 min-h-lvh" role="tabpanel">
         {children}
       </div>
+      <FooterLayout />
     </div>
   );
 };
