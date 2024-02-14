@@ -17,23 +17,20 @@ const api = new Hono<{ Bindings: Bindings }>()
   .use(
     "*",
     cors({
-      origin: [
-        "http://localhost:3000",
-        "*.app.github.dev",
-        "https://qiita-hackathon-2024-qualify-frontend.pages.dev",
-      ],
+      origin: "*",
+      credentials: true,
     }),
   )
-  .use(
-    "*",
-    csrf({
-      origin: [
-        "http://localhost:3000",
-        "*.app.github.dev",
-        "https://qiita-hackathon-2024-qualify-frontend.pages.dev",
-      ],
-    }),
-  )
+  // .use(
+  //   "*",
+  //   csrf({
+  //     origin: [
+  //       "http://localhost:3000",
+  //       "*.app.github.dev",
+  //       "https://qiita-hackathon-2024-qualify-frontend.pages.dev",
+  //     ],
+  //   }),
+  // )
   .get("/", (c) => {
     return c.text("Hello Hono!");
   })

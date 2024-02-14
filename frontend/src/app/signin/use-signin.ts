@@ -29,10 +29,22 @@ const signInFetcher = async (
   _url: string,
   { arg }: { arg: { userName: string } },
 ) => {
-  const result = await client.api.v1.auth.signin.$post({
-    json: { userName: arg.userName },
+  const result = await fetch(client.api.v1.auth.signin.$url(), {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      credentials: "include",
+    },
+    body: JSON.stringify({
+      userName: arg.userName,
+    }),
   });
-  const data = await result.json();
+
+  // const result = await client.api.v1.auth.signin.$post({
+  //   json: { userName: arg.userName },
+  // });
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const data: any = await result.json();
   if (Object.hasOwn(data, "message")) {
     if (result.status === 401) {
       throw new AlreadySignInError();
