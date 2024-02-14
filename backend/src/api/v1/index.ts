@@ -1,5 +1,6 @@
 import { D1Database } from "@cloudflare/workers-types/experimental";
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { csrf } from "hono/csrf";
 import authApi from "./auth";
 import messagesApi from "./messages";
@@ -15,14 +16,21 @@ export type Bindings = {
 const api = new Hono<{ Bindings: Bindings }>()
   .use(
     "*",
-    csrf({
-      origin: [
-        "http://localhost:3000",
-        "*.app.github.dev",
-        "https://qiita-hackathon-2024-qualify-frontend.pages.dev",
-      ],
+    cors({
+      origin: "*",
+      credentials: true,
     }),
   )
+  // .use(
+  //   "*",
+  //   csrf({
+  //     origin: [
+  //       "http://localhost:3000",
+  //       "*.app.github.dev",
+  //       "https://qiita-hackathon-2024-qualify-frontend.pages.dev",
+  //     ],
+  //   }),
+  // )
   .get("/", (c) => {
     return c.text("Hello Hono!");
   })
